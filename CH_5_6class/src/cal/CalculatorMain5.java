@@ -48,7 +48,10 @@ public class CalculatorMain5 {
 			//연산자와 숫자를 연산자배열과 숫자 배열로 분리 하는 과정
 			//첫번째 숫자가 음수일 경우 연산자 갯수와 숫자의 갯수가 동일
 			boolean isNotIntegrity = false;
+			//stop, 숫자 이외의 문자가 포함되어서 변환에 실패했는지
+			//무결성 검사를 위한 boolean값
 			boolean checkDoubleOperation = false;
+			//--,++,**,//, *-,+-,/+,--+등 연산자의 중복사용 확인
 			for(int k = 0; k < temp.length(); k++) {
 				if(temp.charAt(k) == '+' || temp.charAt(k) == '-' ||
 						temp.charAt(k) == '*' || temp.charAt(k) == '/') {
