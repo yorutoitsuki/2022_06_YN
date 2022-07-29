@@ -83,10 +83,10 @@ public class CalculatorMain {
 			}
 			
 		}
-		cal.showOperationgTimes();
+		cal.showOperationTimes();
 		/*---------매서드 수정----------------
 		 * 
-	void showOperationgTimes() {
+	void showOperationTimes() {
 		if(a.getCntAdd()!=0) {
 			System.out.println("덧셈 횟수 : " + a.getCntAdd());
 		}
@@ -101,7 +101,7 @@ public class CalculatorMain {
 		}
 		int total = a.getCntAdd() + s.getCntSub() + m.getCntMul() + d.getCntDiv();
 		if(total != 0) {
-			System.out.println("총 연산 횟수 = " + total);
+			System.out.println("총 연산 횟수 : " + total);
 		}
 		else {
 			System.out.println("시행된 연산 없음");

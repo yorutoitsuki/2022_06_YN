@@ -4,51 +4,51 @@ package cal;
  */
 
 
-class Add{
-	private int cntAdd = 0;//메서드가 호출될 때 마다 1씩 증가하는 카운터 변수
-	//실질적인 기능
-	double add(double n1, double n2) {
-		cntAdd++;
-		return n1 + n2;
-	}
-	int getCntAdd() {
-		return cntAdd;
-	}
-	
-}
-
-class Sub{
-	private int cntSub = 0;
-	double sub(double n1, double n2) {
-		cntSub++;
-		return n1 - n2;
-	}
-	int getCntSub() {
-		return cntSub;
-	}
-}
-
-class Mul{
-	private int cntMul = 0;
-	double mul(double n1, double n2) {
-		cntMul++;
-		return n1 * n2;
-	}
-	int getCntMul() {
-		return cntMul;
-	}
-}
-
-class Div{
-	private int cntDiv = 0;
-	double div(double n1, double n2) {
-		cntDiv++;
-		return n1 / n2;
-	}
-	int getCntDiv() {
-		return cntDiv;
-	}
-}
+//class Add{
+//	private int cntAdd = 0;//메서드가 호출될 때 마다 1씩 증가하는 카운터 변수
+//	//실질적인 기능
+//	double add(double n1, double n2) {
+//		cntAdd++;
+//		return n1 + n2;
+//	}
+//	int getCntAdd() {
+//		return cntAdd;
+//	}
+//	
+//}
+//
+//class Sub{
+//	private int cntSub = 0;
+//	double sub(double n1, double n2) {
+//		cntSub++;
+//		return n1 - n2;
+//	}
+//	int getCntSub() {
+//		return cntSub;
+//	}
+//}
+//
+//class Mul{
+//	private int cntMul = 0;
+//	double mul(double n1, double n2) {
+//		cntMul++;
+//		return n1 * n2;
+//	}
+//	int getCntMul() {
+//		return cntMul;
+//	}
+//}
+//
+//class Div{
+//	private int cntDiv = 0;
+//	double div(double n1, double n2) {
+//		cntDiv++;
+//		return n1 / n2;
+//	}
+//	int getCntDiv() {
+//		return cntDiv;
+//	}
+//}
 
 
 
@@ -65,7 +65,7 @@ class Div{
  */
 
 
-public class Calculator {//계산기
+public class Calculator2 {//계산기
 	//포함 관계 만드는 순서 1. 멤버변수 선언
 	private Add a;
 	private Sub s;
@@ -82,7 +82,7 @@ public class Calculator {//계산기
 //		this.d = d;
 //	}
 	
-	public Calculator() {
+	public Calculator2() {
 		super();//3.부모 객체 생성
 		
 		
