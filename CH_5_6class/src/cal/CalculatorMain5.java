@@ -9,6 +9,8 @@ public class CalculatorMain5 {
 	public static void main(String[] args) {
 		//-------------calculator---------
 		Scanner sc = new Scanner(System.in);
+		
+		
 
 		
 		ArrayList<String> operAL = new ArrayList<String>();
@@ -169,13 +171,13 @@ public class CalculatorMain5 {
 			for(int i = 0; i < operAL.size(); i++) {
 				switch(operAL.get(i)) {
 				case "+":
-					numberAL.set(i, (numberAL.get(i) + numberAL.get(i + 1)));
+					numberAL.set(i, Double.sum(numberAL.get(i),numberAL.get(i + 1)));
 					operAL.remove(i);
 					numberAL.remove(i + 1);
 					i--;
 					break;
 				case "-":
-					numberAL.set(i, (numberAL.get(i) - numberAL.get(i + 1)));
+					numberAL.set(i, Double.sum(numberAL.get(i), (-numberAL.get(i + 1))));
 					operAL.remove(i);
 					numberAL.remove(i + 1);
 					i--;
