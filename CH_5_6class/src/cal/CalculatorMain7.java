@@ -1,10 +1,9 @@
 package cal;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class CalculatorMain5 {
+public class CalculatorMain7 {
 
 	public static void main(String[] args) {
 		//-------------calculator---------
@@ -18,136 +17,105 @@ public class CalculatorMain5 {
 		
 		while(true) {
 			System.out.println("정수 연산자(+,-,*,/) 정수 입력, 탈출은 stop 입력");
-			System.out.println("split을 사용한 계산기와 달리 1+2-3*4/5 처럼 연산자 혼용 가능함");
 			String temp = sc.next().trim();//1*2-3, 1+2-3, 1+2-3*4, 1+2-3*4/5 등 혼용 가능
 			if(temp.equalsIgnoreCase("stop")) {//탈출조건
 				break;
 			}
-
-			//숫자 배열과 연산자 배열 길이를 설정하기 위해 연산자의 숫자를 검색
-			//ex)1+2+3*4 => 연산자 총 3개
-			//이때 필요한 연산자 배열 길이 = 연산자 총 갯수
-			//숫자 배열 길이 = 연산자 총 갯수 + 1
 			
-			//총 연산자 갯수 확인
-			int opers = 0;//연산자 갯수를 칭하는 변수
+			
+			
+			
+			boolean isFirstDiv = false;
+			
+			
+			if(temp.charAt(0)=='*') {
+				numberAL.add(1.0);
+			}else if(temp.charAt(0) == '+' || temp.charAt(0) == '-') {
+				numberAL.add(0.0);
+			}else if(temp.charAt(0) == '/') {
+				isFirstDiv = true;
+			}
+			
+			String tempS = "";
+			boolean numberStart = true;
+			boolean isNotIntegrity = false;
+			double transToDouble = 0;
+			boolean checkDoubleOperation = false;
+			boolean hasTransToNumber = false;
+			
 			for(int k = 0; k < temp.length(); k++) {
 				if(temp.charAt(k) == '+'||temp.charAt(k) == '-'||
 						temp.charAt(k) == '*'||temp.charAt(k) == '/') {
-					opers++;
-				}
-			}
-			
-			
-			
-			int number = 0;//숫자 배열의 index
-			int N = 0;//숫자 배열에 들어갈 숫자
-			String operA[] = new String[opers];//연산자 배열
-			double numberA[] = new double[(opers+1)];//숫자 배열
-			
-			
-
-			//연산자와 숫자를 연산자배열과 숫자 배열로 분리 하는 과정
-			//첫번째 숫자가 음수일 경우 연산자 갯수와 숫자의 갯수가 동일
-			boolean isNotIntegrity = false;
-			//stop, 숫자 이외의 문자가 포함되어서 변환에 실패했는지
-			//무결성 검사를 위한 boolean값
-			boolean checkDoubleOperation = false;
-			//--,++,**,//, *-,+-,/+,--+등 연산자의 중복사용 확인
-			for(int k = 0; k < temp.length(); k++) {
-				if(temp.charAt(k) == '+' || temp.charAt(k) == '-' ||
-						temp.charAt(k) == '*' || temp.charAt(k) == '/') {
 					if(checkDoubleOperation) {
 						break;
 					}
-					//연산자 위치와 종류를 저장
+					if(hasTransToNumber) {
+						try {
+							transToDouble = Double.parseDouble(tempS);
+						} catch (NumberFormatException e) {
+							System.out.println("stop 또는 실수만 넣어주세요");
+							isNotIntegrity = true;
+							break;
+						}
+						numberAL.add(transToDouble);
+						hasTransToNumber = false;
+						numberStart = true;
+					}
+					
+					checkDoubleOperation = true;
+					
 					switch(temp.charAt(k)) {
 					case'+':
-						operA[number] = temp.substring(k, k+1);
-						number++;
-						//연산자 이후에는 숫자가 나오기 때문에 N을 0으로 초기화 해야함
-						N = 0;
-						checkDoubleOperation = true;
+						operAL.add("+");
 						break;
 					case'-':
-						operA[number] = temp.substring(k, k+1);
-						number++;
-						//연산자 이후에는 숫자가 나오기 때문에 N을 0으로 초기화 해야함
-						N = 0;
-						checkDoubleOperation = true;
+						operAL.add("-");
 						break;
 					case'*':
-						operA[number] = temp.substring(k, k+1);
-						number++;
-						//연산자 이후에는 숫자가 나오기 때문에 N을 0으로 초기화 해야함
-						N = 0;
-						checkDoubleOperation = true;
+						operAL.add("*");
 						break;
 					case'/':
-						operA[number] = temp.substring(k, k+1);
-						number++;
-						//연산자 이후에는 숫자가 나오기 때문에 N을 0으로 초기화 해야함
-						N = 0;
-						checkDoubleOperation = true;
+						operAL.add("/");
 						break;
 					}
 				}
 				else {
-					//숫자를 저장
-					N *= 10;
-					try {
-						N += Double.parseDouble(temp.substring(k, k+1));
-					} catch (NumberFormatException e) {
-						System.out.println("stop 또는 정수를 입력해주세요");
-						isNotIntegrity = true;
-						break;
+					if(numberStart) {
+						tempS = temp.substring(k, k+1);
+						numberStart = false;
+					}else {
+						tempS += temp.substring(k,k+1);
 					}
-					numberA[number] = N;
+					
+					hasTransToNumber = true;
 					checkDoubleOperation = false;
-					//해당 위치에 연산자가 없으면 숫자가 있는것
-					//625 숫자는 (6*10*10)+(2*10)+5로 만들어짐
-					//6을 읽고 저장하면 N = 6
-					//그다음 2를 읽고 저장하기전에 N에 10을 곱하면
-					//60 + 2 = 62 -> N에 저장
-					//다음 숫자를 읽기 전에 N에 10을 곱함
-					//620 + 5 = 625 ->N에 저장
-					//625 숫자를 온전히 저장 가능함
+					if(k == temp.length() - 1) {
+						try {
+							transToDouble = Double.parseDouble(tempS);
+							numberAL.add(transToDouble);
+						} catch (NumberFormatException e) {
+							System.out.println("stop 또는 실수만 넣어주세요");
+							isNotIntegrity = true;
+							break;
+						}
+					}
 				}
+				
 			}
+			
 			if(checkDoubleOperation) {
 				System.out.println("연산자 입력 오류가 감지되었습니다.");
 				continue;
 			}
+			
 			if(isNotIntegrity) {
 				continue;
 			}
-			//첫 문자가 숫자 대신 연산자 일 경우
-			//'+', '-'는 상관 없지만 '*', '/'일 경우 계산에 문제가 생김
-			//고로 원할한 계산을 위하여 numverA[0]에 따로 값을 넣어주어야 함
-			//첫번째 숫자 앞에 연산자가 있는가?
-			boolean isFirstMul = false;
-			if(temp.charAt(0)=='*') {
-				isFirstMul = true;
+			
+			if(isFirstDiv) {//  A / B = B -> A = B * B
+				double forDiv = (numberAL.get(0) * numberAL.get(0));
+				numberAL.add(0, forDiv);
 			}
-			boolean isFirstDiv = false;
-			if(temp.charAt(0)=='/') {
-				isFirstDiv = true;
-			}
-			if(isFirstMul) {
-				numberA[0] = 1;
-			}
-			if(isFirstDiv) {//   a/b = b 를 만족하기 위해서는 a = b*b
-				numberA[0] = numberA[1]*numberA[1];
-			}
-			operAL = new ArrayList<String>(Arrays.asList(operA));
-			numberAL = new ArrayList<Double>();
-			for(double num : numberA) {
-				numberAL.add(num);
-			}
-			//숫자배열과 연산자 배열을 이용하여 계산
-			//첫번째 숫자 +(첫번째 연산자 + 두번째 숫자) + (두번째 연산자 + 세번째 숫자)......
-			//k=0        k=0          k=0+1        k= 1         k= 1+1
-			//
 			
 			for (int i = 0; i < operAL.size(); i++) {
 				switch (operAL.get(i)) {
@@ -185,8 +153,9 @@ public class CalculatorMain5 {
 				}
 			}
 			//결과출력
-			System.out.print(temp + " = ");
-			System.out.println(numberAL.toString());
+			System.out.println(temp + " = " + numberAL.toString());
+			numberAL = new ArrayList<Double>();
+			operAL = new ArrayList<String>();
 		}
 		sc.close();
 	}
