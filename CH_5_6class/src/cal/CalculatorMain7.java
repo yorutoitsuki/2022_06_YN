@@ -16,7 +16,7 @@ public class CalculatorMain7 {
 		ArrayList<Double> numberAL = new ArrayList<Double>();
 		
 		while(true) {
-			System.out.println("정수 연산자(+,-,*,/) 정수 입력, 탈출은 stop 입력");
+			System.out.println("실수와 연산자(+,-,*,/) 입력, 탈출은 stop 입력");
 			String temp = sc.next().trim();//1*2-3, 1+2-3, 1+2-3*4, 1+2-3*4/5 등 혼용 가능
 			if(temp.equalsIgnoreCase("stop")) {//탈출조건
 				break;
