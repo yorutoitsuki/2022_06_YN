@@ -94,7 +94,45 @@ public class BookArrayListMain {
 		fruits.remove(1);
 		System.out.println(fruits);
 		
+		//library는 Book객체만 관리함. new Integer(1) 또는 "홍길동 이야기"는 String객체
+		if(library.remove(new Integer(1))) {
+			System.out.println("1을 찾아서 삭제함");
+		}
+		else {
+			System.out.println("1을 못 찾음");
+		}
+		
+		System.out.println("toString() 사용");
+		System.out.println(library.toString());
+		//[주소1, 주소2, 주소3]
+		//[주소1.toString(),주소2.toString(),주소3.toString()]
+		
+		
 		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
