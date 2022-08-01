@@ -1,5 +1,7 @@
-package studentsubjecttest;
+package studentsubjecttest2;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class Student {
@@ -19,6 +21,23 @@ public class Student {
 			subject = new ArrayList<Subject>();
 		}
 		
+		@Override
+		public String toString() {
+			return studentID + "번 학생 " + studentName + "\n" + subject + totalScore_Avg();
+		}
+		
+		private String totalScore_Avg()	{
+			double totalScore = 0;
+			for(int i = 0; i < subject.size(); i++) {
+				totalScore += subject.get(i).getSubjectScore();
+			}
+			BigDecimal totalBig = new BigDecimal(totalScore);
+			BigDecimal size = new BigDecimal(subject.size());
+			double avgScore = totalBig.divide(size, 2, RoundingMode.HALF_UP).doubleValue();
+			
+			return "\n총점 : " + totalScore + "점\n" + "평균 : " + avgScore + "점\n";
+		}
+
 		//3. 메서드(=소문자로시작~()) : 기능
 		//학생이 수강하는 과목과 그 해당 점수를 추가하는 메서드
 		public void addSubject(String subjectName, int subjectScore) {

@@ -1,4 +1,4 @@
-package studentsubjecttest;
+package studentsubjecttest2;
 
 public class Subject {
 	//1. 멤버변수(=field) : 속성- 정보보안 : private
