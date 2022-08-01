@@ -1,5 +1,7 @@
 package cal;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -113,20 +115,27 @@ public class CalculatorMain7 {
 			}
 			
 			if(isFirstDiv) {//  A / B = B -> A = B * B
-				double forDiv = (numberAL.get(0) * numberAL.get(0));
+				BigDecimal tempD = new BigDecimal(numberAL.get(0));
+				double forDiv = tempD.multiply(tempD).doubleValue();
 				numberAL.add(0, forDiv);
 			}
+			
+			
 			
 			for (int i = 0; i < operAL.size(); i++) {
 				switch (operAL.get(i)) {
 				case "*":
-					numberAL.set(i, (numberAL.get(i) * numberAL.get(i + 1)));
+					BigDecimal mul1 = new BigDecimal(numberAL.get(i));
+					BigDecimal mul2 = new BigDecimal(numberAL.get(i+1));
+					numberAL.set(i, mul1.multiply(mul2).doubleValue());
 					operAL.remove(i);
 					numberAL.remove(i + 1);
 					i--;
 					break;
 				case "/":
-					numberAL.set(i, (numberAL.get(i) / numberAL.get(i + 1)));
+					BigDecimal div1 = new BigDecimal(numberAL.get(i));
+					BigDecimal div2 = new BigDecimal(numberAL.get(i+1));
+					numberAL.set(i, div1.divide(div2,RoundingMode.HALF_UP).doubleValue());
 					operAL.remove(i);
 					numberAL.remove(i + 1);
 					i--;
@@ -139,13 +148,17 @@ public class CalculatorMain7 {
 			for(int i = 0; i < operAL.size(); i++) {
 				switch(operAL.get(i)) {
 				case "+":
-					numberAL.set(i, Double.sum(numberAL.get(i),numberAL.get(i + 1)));
+					BigDecimal sum1 = new BigDecimal(numberAL.get(i));
+					BigDecimal sum2 = new BigDecimal(numberAL.get(i+1));
+					numberAL.set(i, sum1.add(sum2).doubleValue());
 					operAL.remove(i);
 					numberAL.remove(i + 1);
 					i--;
 					break;
 				case "-":
-					numberAL.set(i, Double.sum(numberAL.get(i), (-numberAL.get(i + 1))));
+					BigDecimal sub1 = new BigDecimal(numberAL.get(i));
+					BigDecimal sub2 = new BigDecimal(numberAL.get(i+1));
+					numberAL.set(i, sub1.subtract(sub2).doubleValue());
 					operAL.remove(i);
 					numberAL.remove(i + 1);
 					i--;
