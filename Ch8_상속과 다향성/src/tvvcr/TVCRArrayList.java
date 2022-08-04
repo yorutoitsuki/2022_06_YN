@@ -32,7 +32,12 @@ public class TVCRArrayList {
 			
 			/*
 			 * e가 참조하는 객체가 TVCR객체 또는 자식객체이면 true를 반환
+			 * 
 			 */
+//			TVCR tvcr = (TVCR) e;//주의 아무 자식으로 강제 형변환 해도 컴파일에서는 오류가 안남
+//			하지만 런타임 오류를 일으킴
+//			ClassCastException 오류
+//			String s = (String) e;//그러나 자식이 아닌 클래스로 강제 형변환 하면 컴파일 오류 발생
 			if(e instanceof TVCR) {
 				((TVCR) e).play();
 			}
