@@ -45,7 +45,7 @@ public class Customer {//고객 : 부모
 	 */
 	
 	public int calcPrice(int productPrice) {//물건값
-		bonusPoint -= productPrice*bonusRatio;
+		bonusPoint += productPrice*bonusRatio;
 		return productPrice;
 	}
 	
