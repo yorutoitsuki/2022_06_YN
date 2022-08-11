@@ -7,9 +7,20 @@ package a_project_Interface;
 public class PersonMain {
 
 	public static void main(String[] args) {
-		System.out.print("저장할 고객수 > ");
-		int personNum = MenuViewer.sc.nextInt();
 		
+		int personNum = 0;
+		
+		while(true) {
+			try {
+				System.out.print("저장할 고객수 > ");
+				personNum = MenuViewer.sc.nextInt();
+				break;
+			} catch (Exception e) {
+				MenuViewer.sc.nextLine();
+				System.out.println("정수만 입력");
+				continue;
+			}
+		}
 		/*
 		 * 홍대표는 a회사에서 알려준 '매니저 클래스'만 알면 된다.
 		 * 
