@@ -19,30 +19,32 @@ public class PersonMain {
 		 */
 		
 		P p = new PI(personNum);
-		
-		MenuViewer.showMenu();
-		String temp = MenuViewer.sc.next().trim();
-		int choice = 0;
-		if(temp.equals("1")||temp.equals("2")||temp.equals("3")) {
-			choice = Integer.parseInt(temp);
+		while(true) {
+			MenuViewer.showMenu();
+			String temp = MenuViewer.sc.next().trim();
+			int choice = 0;
+			if(temp.equals("1")||temp.equals("2")||temp.equals("3")) {
+				choice = Integer.parseInt(temp);
+			}
+			
+			
+			
+			switch(choice) {
+			case P.INPUT:
+				p.input();
+				break;
+			case P.SEARCH:
+				p.search();
+				break;
+			case P.EXIT:
+				System.out.println("프로그램을 종료합니다");
+				return;
+//				System.exit(0);//강제종료
+			default:
+				System.out.println("1~3사이의 정수를 입력해주세요");
+			}
 		}
 		
-		
-		
-		switch(choice) {
-		case P.INPUT:
-			p.input();
-			break;
-		case P.SEARCH:
-			p.search();
-			break;
-		case P.EXIT:
-			System.out.println("프로그램을 종료합니다");
-			return;
-//			System.exit(0);//강제종료
-		default:
-			System.out.println("1~3사이의 정수를 입력해주세요");
-		}
 	}
 
 }

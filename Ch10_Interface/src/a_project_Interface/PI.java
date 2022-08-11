@@ -27,6 +27,10 @@ class Person {//이름과 주민등록번호를 가진 고객 클래스
 	String getSerialNumber() {
 		return serialNumber;
 	}
+	@Override
+	public String toString() {
+		return "\n[ 이름 : " + name + ", 주민등록 번호 : " + serialNumber + " ]\n";
+	}
 }
 
 class Person2 extends Person {
@@ -42,6 +46,11 @@ class Person2 extends Person {
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+	@Override
+	public String toString() {
+		return "\n[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() +
+				", 전화번호 : " + phoneNumber + " ]\n";
+	}
 }
 
 class Person3 extends Person {
@@ -56,6 +65,10 @@ class Person3 extends Person {
 	//메서드 추가
 	public String getAddress() {
 		return address;
+	}
+	@Override
+	public String toString() {
+		return "\n[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() + ", 주소 : " + address + " ]\n";
 	}
 }
 
@@ -79,8 +92,8 @@ class Person4 extends Person {
 	}
 	@Override
 	public String toString() {
-		return "[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() +
-				", 전화번호 : " + getPhoneNumber() + ", 주소 : " + getAddress() + " ]";
+		return "\n[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() +
+				", 전화번호 : " + phoneNumber + ", 주소 : " + address + " ]\n";
 	}
 	
 }
@@ -99,63 +112,78 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 	@Override
 	public void input() {
 		if(PersonIndex == p.length) {
-			System.out.println("관리 할 수 있는 범위를 초과합니다");
+			System.out.println("\n****관리 할 수 있는 범위를 초과합니다****\n");
 			return;
 		}
 		System.out.print("이름?");
 		String name = MenuViewer.sc.next();
 		
 		String serialNumber;
+		String frontNumber;
+		String backNumber;
 		while(true) {
-			System.out.println("주민등록 번호?");
-			serialNumber = MenuViewer.sc.next();
-			String[] serialCheckTemp = serialNumber.trim().split("-");
-			if(serialCheckTemp.length>2) {
-				System.out.println("주민등록번호를 재확인 해주세요");
+			System.out.println("주민등록 번호 앞자리?");
+			frontNumber = MenuViewer.sc.next();
+			try {
+				Integer.parseInt(frontNumber);
+			} catch (NumberFormatException e) {
+				MenuViewer.sc.nextLine();
+				System.out.println("번호확인 부탁드립니다.");
 				continue;
 			}
-			int check = 0;
-			for(String temp:serialCheckTemp) {
-				try {
-					check = Integer.parseInt(temp);
-				} catch (NumberFormatException e) {
-					System.out.println("주민등록번호를 재확인 해주세요");
-					check = 0;
-					break;
-				}
+			
+			System.out.println("주민등록 번호 뒷자리?");
+			backNumber = MenuViewer.sc.next();
+			try {
+				Integer.parseInt(backNumber);
+			} catch (NumberFormatException e) {
+				MenuViewer.sc.nextLine();
+				System.out.println("번호 확인 부탁드립니다.");
+				continue;
 			}
-			if(check > 0) {
-				break;
-			}
+			serialNumber = frontNumber.concat("-"+backNumber);
+			break;
 		}
 		
-		String phoneNumber;
+		String phoneNumber = "";
+		String middleNumber;
 		boolean Boolphone = true;
 		while(true) {
-			System.out.println("전화번호 입력, 없으면 0");
-			phoneNumber = MenuViewer.sc.next();
-			String[] phoneNumberTemp = phoneNumber.trim().split("-");
-			if(phoneNumberTemp[0] == "0") {
+			System.out.println("전화 번호 앞자리? 없으면 0을 입력");
+			frontNumber = MenuViewer.sc.next();
+			if(frontNumber.equals("0")) {
 				Boolphone = false;
 				break;
 			}
-			if(phoneNumberTemp.length>3) {
-				System.out.println("전화 번호를 재확인 해주세요");
+			try {
+				Integer.parseInt(frontNumber);
+			} catch (NumberFormatException e) {
+				MenuViewer.sc.nextLine();
+				System.out.println("앞번호 확인 부탁드립니다.");
 				continue;
 			}
-			int check = 0;
-			for(String temp:phoneNumberTemp) {
-				try {
-					check = Integer.parseInt(temp);
-				} catch (NumberFormatException e) {
-					System.out.println("전화 번호를 재확인 해주세요");
-					check = 0;
-					break;
-				}
+
+			System.out.println("전화 번호 중간 자리?");
+			middleNumber = MenuViewer.sc.next();
+			try {
+				Integer.parseInt(middleNumber);
+			} catch (NumberFormatException e) {
+				MenuViewer.sc.nextLine();
+				System.out.println("중간자리 번호 확인 부탁드립니다.");
+				continue;
 			}
-			if(check > 0) {
-				break;
+
+			System.out.println("번화 번호 뒷자리?");
+			backNumber = MenuViewer.sc.next();
+			try {
+				Integer.parseInt(backNumber);
+			} catch (NumberFormatException e) {
+				MenuViewer.sc.nextLine();
+				System.out.println("뒷자리번호 확인 부탁드립니다.");
+				continue;
 			}
+			phoneNumber = frontNumber.concat("-"+middleNumber).concat("-"+backNumber);
+			break;
 		}
 		
 		boolean Booladdress = true;
@@ -186,18 +214,37 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 	@Override
 	public void search() {
 		System.out.print("주민 등록번호로 검색을 합니다. 주민등록 번호 입력 > ");
-		String keyWord = MenuViewer.sc.next();
-		boolean match = false;
+		String keyWord = MenuViewer.sc.next().trim();
+		String[] temp = keyWord.split("-");
+		if(temp.length > 2) {
+			System.out.println("주민 등록 번호 재확인 해주세요");
+			return;
+		}
+		keyWord = String.join("", temp);
+		
 		for(int i = 0; i < p.length; i ++) {
 			if(p[i] == null) {
 				break;
 			}
-			if(p[i].getSerialNumber().equals(keyWord)) {
+			String tempA[] = p[i].getSerialNumber().split("-");
+			String check = String.join("", tempA);
+			if(check.equals(keyWord)) {
 				if(p[i] instanceof Person4) {
-					
+					System.out.println((Person4)p[i]);
 				}
+				else if(p[i] instanceof Person3) {
+					System.out.println((Person3)p[i]);
+				}
+				else if(p[i] instanceof Person2) {
+					System.out.println((Person2)p[i]);
+				}
+				else if(p[i] instanceof Person) {
+					System.out.println(p[i]);
+				}
+				return;
 			}
 		}
+			System.out.println("일치하는 번호 없음");
 	}
 
 }
