@@ -41,9 +41,6 @@ public class PersonMain {
 			if(temp.equals("1")||temp.equals("2")||temp.equals("3")||temp.equals("4")) {
 				choice = Integer.parseInt(temp);
 			}
-			
-			
-			
 			switch(choice) {
 			case P.INPUT:
 				p.input();
