@@ -99,31 +99,37 @@ class Person4 extends Person {
 }
 
 public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저 클래스'(이 클래스만 외부에 알리면 됨)
-	private ArrayList<Person> person;
+//	private ArrayList<Person> person;
 	private Person[] p;
 	private int PersonIndex = 0;
 	
 	public PI(int personNum) {
-		person = new ArrayList<>();
+//		person = new ArrayList<>();
 		p = new Person[personNum];//고객수 만큼 배열 객체 생성
 	}
 	
 	
 	@Override
 	public void input() {
+		//관리 가능한 범위 확인
 		if(PersonIndex == p.length) {
 			System.out.println("\n****관리 할 수 있는 범위를 초과합니다****\n");
 			return;
 		}
+		
+		//이름 저장
 		System.out.print("이름?");
 		String name = MenuViewer.sc.next();
+		//이름 저장 완료
 		
+		//주민번호 저장
 		String serialNumber;
 		String frontNumber;
 		String backNumber;
 		while(true) {
 			System.out.println("주민등록 번호 앞자리?");
 			frontNumber = MenuViewer.sc.next();
+			//숫자를 넣었는지 문자를 넣었는지 확인
 			try {
 				Integer.parseInt(frontNumber);
 			} catch (NumberFormatException e) {
@@ -134,6 +140,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			
 			System.out.println("주민등록 번호 뒷자리?");
 			backNumber = MenuViewer.sc.next();
+			//숫자를 넣었는지 문자를 넣었는지 확인
 			try {
 				Integer.parseInt(backNumber);
 			} catch (NumberFormatException e) {
@@ -143,19 +150,23 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			}
 			serialNumber = frontNumber.concat("-"+backNumber);
 			break;
-		}
+		}//주민 번호 저장 완료
 		
+		//전화번호 저장, 위쪽에서 사용한 변수 재사용
 		String phoneNumber = "";
 		String middleNumber;
-		boolean Boolphone = true;
+		boolean Boolphone = true;//전화번호 유무 확인용 트리거
 		while(true) {
 			System.out.println("전화 번호 앞자리? 없으면 0을 입력");
 			frontNumber = MenuViewer.sc.next();
+			//트리거
 			if(frontNumber.equals("0")) {
 				Boolphone = false;
 				break;
-			}
-			try {
+			}//트리거 완료
+			
+			
+			try {//숫자를 넣었는지 문자를 넣었는지 확인
 				Integer.parseInt(frontNumber);
 			} catch (NumberFormatException e) {
 				MenuViewer.sc.nextLine();
@@ -165,7 +176,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 
 			System.out.println("전화 번호 중간 자리?");
 			middleNumber = MenuViewer.sc.next();
-			try {
+			try {//숫자를 넣었는지 문자를 넣었는지 확인
 				Integer.parseInt(middleNumber);
 			} catch (NumberFormatException e) {
 				MenuViewer.sc.nextLine();
@@ -175,7 +186,8 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 
 			System.out.println("번화 번호 뒷자리?");
 			backNumber = MenuViewer.sc.next();
-			try {
+			
+			try {//숫자를 넣었는지 문자를 넣었는지 확인
 				Integer.parseInt(backNumber);
 			} catch (NumberFormatException e) {
 				MenuViewer.sc.nextLine();
@@ -213,6 +225,10 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 
 	@Override
 	public void search() {
+		if(p[0] == null) {
+			System.out.println("\n****저장된 고객정보 없음****\n");
+			return;
+		}
 		System.out.print("주민 등록번호로 검색을 합니다. 주민등록 번호 입력 > ");
 		String keyWord = MenuViewer.sc.next().trim();
 		String[] temp = keyWord.split("-");

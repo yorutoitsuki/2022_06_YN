@@ -14,6 +14,10 @@ public class PersonMain {
 			try {
 				System.out.print("저장할 고객수 > ");
 				personNum = MenuViewer.sc.nextInt();
+				if(personNum < 1) {
+					System.out.println("1이상의 수를 넣어주세요");
+					continue;
+				}
 				break;
 			} catch (Exception e) {
 				MenuViewer.sc.nextLine();
@@ -52,7 +56,7 @@ public class PersonMain {
 				return;
 //				System.exit(0);//강제종료
 			default:
-				System.out.println("1~3사이의 정수를 입력해주세요");
+				System.out.println("\n****1~3사이의 정수를 입력해주세요****\n");
 			}
 		}
 		
