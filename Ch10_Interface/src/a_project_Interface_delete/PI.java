@@ -1,6 +1,5 @@
-package a_project_Interface;
+package a_project_Interface_delete;
 
-import java.util.ArrayList;
 
 /*
  * PI클래스는 P인터페이스를 구현함.
@@ -108,6 +107,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		p = new Person[personNum];//고객수 만큼 배열 객체 생성
 	}
 	
+	private final int testNumber = 2;
 	private boolean Booladdress = true;//주소확인용 트리거
 	private boolean Boolphone = true;//번호확인용 트리거
 	@Override
@@ -119,7 +119,6 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		}
 		
 		//이름 저장
-		MenuViewer.sc.nextLine();
 		System.out.print("이름?");
 		String name = MenuViewer.sc.nextLine();
 		//이름 저장 완료
@@ -131,6 +130,10 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		while(true) {
 			System.out.println("주민등록 번호 앞자리?");
 			frontNumber = MenuViewer.sc.nextLine().trim();
+			if(frontNumber.length()!=testNumber) {
+				System.out.println("번호확인 부탁드립니다");
+				continue;
+			}
 			//숫자를 넣었는지 문자를 넣었는지 확인
 			try {
 				Integer.parseInt(frontNumber);
@@ -142,6 +145,10 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			
 			System.out.println("주민등록 번호 뒷자리?");
 			backNumber = MenuViewer.sc.nextLine().trim();
+			if(backNumber.length()!=testNumber) {
+				System.out.println("번호확인 부탁드립니다");
+				continue;
+			}
 			//숫자를 넣었는지 문자를 넣었는지 확인
 			try {
 				Integer.parseInt(backNumber);
@@ -153,7 +160,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			serialNumber = frontNumber.concat("-"+backNumber);
 			if(search(serialNumber)) {
 				System.out.println("이미 등록된 번호입니다");
-				continue;
+				return;
 			}
 			
 			break;
@@ -172,6 +179,10 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 				Boolphone = false;
 				break;
 			}//트리거 완료
+			if(frontNumber.length()!=testNumber) {
+				System.out.println("번호확인 부탁드립니다");
+				continue;
+			}
 			
 			
 			try {//숫자를 넣었는지 문자를 넣었는지 확인
@@ -184,6 +195,10 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 
 			System.out.println("전화 번호 중간 자리?");
 			middleNumber = MenuViewer.sc.nextLine().trim();
+			if(middleNumber.length()!=testNumber) {
+				System.out.println("번호확인 부탁드립니다");
+				continue;
+			}
 			try {//숫자를 넣었는지 문자를 넣었는지 확인
 				Integer.parseInt(middleNumber);
 			} catch (NumberFormatException e) {
@@ -194,6 +209,10 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 
 			System.out.println("전화 번호 뒷자리?");
 			backNumber = MenuViewer.sc.nextLine().trim();
+			if(backNumber.length()!=testNumber) {
+				System.out.println("번호확인 부탁드립니다");
+				continue;
+			}
 			try {//숫자를 넣었는지 문자를 넣었는지 확인
 				Integer.parseInt(backNumber);
 			} catch (NumberFormatException e) {
@@ -212,19 +231,6 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			Booladdress = false;
 		}
 		addPerson(name, serialNumber, phoneNumber, address);
-//		if(Booladdress && Boolphone) {
-//			p[PersonIndex] = new Person4(name, serialNumber, phoneNumber, address);
-//		}
-//		else if (Booladdress) {
-//			p[PersonIndex] = new Person3(name, serialNumber, address);
-//		}
-//		else if (Boolphone) {
-//			p[PersonIndex] = new Person2(name, serialNumber, phoneNumber);
-//		}
-//		else {
-//			p[PersonIndex] = new Person(name, serialNumber);
-//		}
-//		PersonIndex++;
 	}
 	
 	private void addPerson(String name, String serialNumber, String phoneNumber, String address) {
@@ -265,7 +271,6 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			System.out.println("\n****저장된 고객정보 없음****\n");
 			return;
 		}
-		MenuViewer.sc.nextLine();
 		System.out.print("주민 등록번호로 검색을 합니다. 주민등록 번호 입력 > ");
 		String keyWord = MenuViewer.sc.nextLine().trim();
 		String[] temp = keyWord.split("-");
@@ -276,29 +281,6 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		keyWord = String.join("", temp);
 		
 		System.out.println(search2(keyWord));
-		
-//		for(int i = 0; i < p.length; i ++) {
-//			if(p[i] == null) {
-//				break;
-//			}
-//			String check = String.join("", p[i].getSerialNumber().split("-"));
-//			if(check.equals(keyWord)) {
-//				if(p[i] instanceof Person4) {
-//					System.out.println((Person4)p[i]);
-//				}
-//				else if(p[i] instanceof Person3) {
-//					System.out.println((Person3)p[i]);
-//				}
-//				else if(p[i] instanceof Person2) {
-//					System.out.println((Person2)p[i]);
-//				}
-//				else if(p[i] instanceof Person) {
-//					System.out.println(p[i]);
-//				}
-//				return;
-//			}
-//		}
-//			System.out.println("일치하는 번호 없음");
 	}
 	
 	private String search2(String keyWord) {
@@ -324,13 +306,60 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		}
 			return "\n****일치하는 고객 없음****\n";
 	}
-
-	//-------------------------인터페이스 문법적 설명을 위해 아래 코드 추가--------------------//
+	
+	private int searchDelete(String number) {
+		if(PersonIndex == 0) {//저장되어 있지 않으면 바로 종료
+			return -1;
+		}
+		for(int i = 0; i < p.length; i ++) {
+			if(p[i] == null) {
+				break;
+			}
+			if( String.join("", p[i].getSerialNumber().split("-")).equals(number)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	private void deleteFn(int indexNumber) {
+		System.out.println("삭제되는 정보 " + p[indexNumber]);
+		for(int i = indexNumber; i < p.length; i++) {
+			if(p[i] == null) {
+				return;
+			}
+			if(i == (p.length -1)) {
+				p[i] = null;
+				return;
+			}
+			p[i] = p[i+1];
+		}
+	}
+	
 	@Override
-	public void show() {
-//		P.super.show();
-		System.out.println("*********************고객 정보 출력**********************");
-		
+	public void delete() {
+		if(p[0] == null) {
+			System.out.println("\n*****저장된 고객 정보 없음*****\n");
+			return;
+		}
+		System.out.println("삭제 하고싶은 주민등록번호");
+		String keyWord = MenuViewer.sc.nextLine().trim();
+		keyWord = String.join("", keyWord.split("-"));
+		try {
+			Integer.parseInt(keyWord);
+		} catch (NumberFormatException e) {
+			System.out.println("주민등록번호를 확인해주세요");
+			return;
+		}
+		int indexNumber = searchDelete(keyWord);
+		if(indexNumber < 0) {
+			System.out.println("\n****해당하는 고객 없음****\n");
+			return;
+		}
+		else {
+			deleteFn(indexNumber);
+			PersonIndex--;
+		}
 	}
 	
 }
