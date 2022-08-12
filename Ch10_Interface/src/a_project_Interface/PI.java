@@ -208,7 +208,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		
 		Booladdress = true;
 		System.out.println("주소를 입력, 없으면 0");
-		String address = MenuViewer.sc.next();
+		String address = MenuViewer.sc.nextLine();
 		if(address.charAt(0) == '0') {
 			Booladdress = false;
 		}
@@ -325,5 +325,12 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			return "\n****일치하는 고객 없음****\n";
 	}
 
-
+	//-------------------------인터페이스 문법적 설명을 위해 아래 코드 추가--------------------//
+	@Override
+	public void show() {
+//		P.super.show();
+		System.out.println("*********************고객 정보 출력**********************");
+		
+	}
+	
 }
