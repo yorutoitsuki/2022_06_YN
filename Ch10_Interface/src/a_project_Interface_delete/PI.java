@@ -110,16 +110,17 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 //		person = new ArrayList<>();
 		p = new Person[personNum];// 고객수 만큼 배열 객체 생성
 	}
-
+	////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void input() {
-		////////////////////////////////////////////////////////////////////////////////////////////
 		if(p.length == PersonIndex) {
 			System.out.println("관리 범위를 초과합니다");
 			return;
 		}
+		
+		////////////////////////////////////////////////////////////////////////////////////////////
 		System.out.println("이름?");// 이름 저장 시작
-		String name = SC.sc.nextLine().trim();
+		String name = MenuViewer.sc.nextLine().trim();
 		for (int i = 0; i < name.length(); i++) {// 특수문자, 숫자 입력 감지
 			int temp = (int) name.charAt(i);// if문에 들어가기 전 연산이 발생하는 경우, 따로 저장해 놓으면 추가 연산이 필요 없어지므로 연산 효율이 상승
 			if ((0 <= temp && temp <= 64) || (91 <= temp && temp <= 96) || (123 <= temp && temp <= 127)) {
@@ -132,7 +133,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		String rearNumber;
 		while (true) {// 주민 등록 번호 앞자리 저장 시작
 			System.out.println("주민 등록 번호 앞자리?(7자리)");
-			frontNumber = SC.sc.nextLine().trim();
+			frontNumber = MenuViewer.sc.nextLine().trim();
 			if (numberIntegrityCheck(frontNumber)) {// 숫자 무결성 검사함수를 통하여 무결성 검사.
 				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
 			}
@@ -145,7 +146,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 
 		while (true) {// 주민 등록 번호 뒷자리 저장 시작
 			System.out.println("주민 등록 번호 뒷자리?(7자리)");
-			rearNumber = SC.sc.nextLine().trim();
+			rearNumber = MenuViewer.sc.nextLine().trim();
 			if (numberIntegrityCheck(rearNumber)) {// 숫자 무결성 검사함수를 통하여 무결성 검사.
 				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
 			}
@@ -158,12 +159,11 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 
 		////////////////////////////////////////////////////////////////////////////////////////////
 		// 중복 확인 검사
-		if (serialNumberPK(frontNumber.concat(rearNumber))) {
+		String serialNumber = frontNumber.concat("-" + rearNumber);
+		if (serialNumberPK(serialNumber)) {
 			System.out.println("이미 등록된 번호입니다");
 			return;
 		} // 중복 확인 종료
-
-		String serialNumber = frontNumber.concat("-" + rearNumber);
 		// 주민 등록 번호 저장 종료
 		////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -171,7 +171,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		String middleNumber = "";
 		while (true) {// 전화번호 앞자리 저장 시작
 			System.out.println("전화번호 첫번째 자리?(3자리) skip은 0");
-			frontNumber = SC.sc.nextLine().trim();
+			frontNumber = MenuViewer.sc.nextLine().trim();
 			if (frontNumber.equals("0")) {// skip확인
 				break;
 			}
@@ -184,7 +184,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			} // 전화번호 앞자리 저장 끝
 
 			System.out.println("전화번호 중간 자리?(4자리) skip은 0");// 전화 번호 중간 자리 저장 시작
-			middleNumber = SC.sc.nextLine().trim();
+			middleNumber = MenuViewer.sc.nextLine().trim();
 			if (middleNumber.equals("0")) {// skip확인
 				frontNumber = "0";
 				break;
@@ -198,7 +198,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			} // 전화 번호 중간 자리 저장 끝
 
 			System.out.println("전화번호 마지막 자리?(4자리) skip은 0");// 전화 번호 뒷자리 저장 시작
-			rearNumber = SC.sc.nextLine().trim();
+			rearNumber = MenuViewer.sc.nextLine().trim();
 			if (rearNumber.equals("0")) {// skip확인
 				frontNumber = "0";
 				break;
@@ -224,7 +224,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		String address;
 		while (true) {
 			System.out.println("주소를 입력, skip은 0");
-			address = SC.sc.nextLine();
+			address = MenuViewer.sc.nextLine();
 			if (address.equals("0")) {
 				break;// skip
 			}
@@ -238,7 +238,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		while (true) {
 			System.out.println(showPersonToString(temp));
 			System.out.println("고객 정보가 맞습니까? Y/N");
-			String YorN = SC.sc.nextLine().trim().toLowerCase();
+			String YorN = MenuViewer.sc.nextLine().trim().toLowerCase();
 			switch (YorN) {
 			case "y":
 				p[PersonIndex] = temp;
@@ -289,7 +289,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		while (true) {
 			System.out.println(showPersonToString(p[index]));
 			System.out.println("삭제 되는 데이터 입니다. 진행하겠습니까? Y/N");
-			String YorN = SC.sc.nextLine().trim().toLowerCase();
+			String YorN = MenuViewer.sc.nextLine().trim().toLowerCase();
 			switch (YorN) {
 			case "y":
 				deleteSequence(index);
@@ -395,7 +395,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	private String makeKeyWord() {//조회, 삭제용 키워드 생성 시작
 		while(true) {
 			System.out.println("주민 등록 번호 앞자리 입력");
-			String frontNumber = SC.sc.nextLine();
+			String frontNumber = MenuViewer.sc.nextLine();
 			if(numberIntegrityCheck(frontNumber)) {
 				continue;
 			}
@@ -404,7 +404,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 				continue;
 			}
 			System.out.println("주민 등록 번호 뒷자리 입력");
-			String rearNumber = SC.sc.nextLine();
+			String rearNumber = MenuViewer.sc.nextLine();
 			if(numberIntegrityCheck(frontNumber)) {
 				continue;
 			}
