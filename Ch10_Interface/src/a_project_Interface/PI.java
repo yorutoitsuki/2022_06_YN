@@ -108,7 +108,8 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		p = new Person[personNum];//고객수 만큼 배열 객체 생성
 	}
 	
-	
+	private boolean Booladdress = true;//주소확인용 트리거
+	private boolean Boolphone = true;//번호확인용 트리거
 	@Override
 	public void input() {
 		//관리 가능한 범위 확인
@@ -161,7 +162,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		//전화번호 저장, 위쪽에서 사용한 변수 재사용
 		String phoneNumber = "";
 		String middleNumber;
-		boolean Boolphone = true;//전화번호 유무 확인용 트리거
+		Boolphone = true;//전화번호 유무 확인용 트리거
 		while(true) {
 			System.out.println("전화 번호 앞자리? 없으면 0을 입력");
 			frontNumber = MenuViewer.sc.next();
@@ -205,13 +206,29 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		}
 		
 		
-		boolean Booladdress = true;
+		Booladdress = true;
 		System.out.println("주소를 입력, 없으면 0");
 		String address = MenuViewer.sc.next();
 		if(address.charAt(0) == '0') {
 			Booladdress = false;
 		}
-		
+		addPerson(name, serialNumber, phoneNumber, address);
+//		if(Booladdress && Boolphone) {
+//			p[PersonIndex] = new Person4(name, serialNumber, phoneNumber, address);
+//		}
+//		else if (Booladdress) {
+//			p[PersonIndex] = new Person3(name, serialNumber, address);
+//		}
+//		else if (Boolphone) {
+//			p[PersonIndex] = new Person2(name, serialNumber, phoneNumber);
+//		}
+//		else {
+//			p[PersonIndex] = new Person(name, serialNumber);
+//		}
+//		PersonIndex++;
+	}
+	
+	private void addPerson(String name, String serialNumber, String phoneNumber, String address) {
 		if(Booladdress && Boolphone) {
 			p[PersonIndex] = new Person4(name, serialNumber, phoneNumber, address);
 		}
@@ -258,31 +275,55 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		}
 		keyWord = String.join("", temp);
 		
+		System.out.println(search2(keyWord));
+		
+//		for(int i = 0; i < p.length; i ++) {
+//			if(p[i] == null) {
+//				break;
+//			}
+//			String check = String.join("", p[i].getSerialNumber().split("-"));
+//			if(check.equals(keyWord)) {
+//				if(p[i] instanceof Person4) {
+//					System.out.println((Person4)p[i]);
+//				}
+//				else if(p[i] instanceof Person3) {
+//					System.out.println((Person3)p[i]);
+//				}
+//				else if(p[i] instanceof Person2) {
+//					System.out.println((Person2)p[i]);
+//				}
+//				else if(p[i] instanceof Person) {
+//					System.out.println(p[i]);
+//				}
+//				return;
+//			}
+//		}
+//			System.out.println("일치하는 번호 없음");
+	}
+	
+	private String search2(String keyWord) {
 		for(int i = 0; i < p.length; i ++) {
 			if(p[i] == null) {
 				break;
 			}
-			String tempA[] = p[i].getSerialNumber().split("-");
-			String check = String.join("", tempA);
+			String check = String.join("", p[i].getSerialNumber().split("-"));
 			if(check.equals(keyWord)) {
 				if(p[i] instanceof Person4) {
-					System.out.println((Person4)p[i]);
+					return ((Person4)p[i]).toString();
 				}
 				else if(p[i] instanceof Person3) {
-					System.out.println((Person3)p[i]);
+					return ((Person3)p[i]).toString();
 				}
 				else if(p[i] instanceof Person2) {
-					System.out.println((Person2)p[i]);
+					return ((Person2)p[i]).toString();
 				}
-				else if(p[i] instanceof Person) {
-					System.out.println(p[i]);
+				else {
+					return (p[i]).toString();
 				}
-				return;
 			}
 		}
-			System.out.println("일치하는 번호 없음");
+			return "\n****일치하는 고객 없음****\n";
 	}
-	
 
 
 }
