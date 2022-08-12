@@ -149,8 +149,14 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 				continue;
 			}
 			serialNumber = frontNumber.concat("-"+backNumber);
+			if(search(serialNumber)) {
+				System.out.println("이미 등록된 번호입니다");
+				continue;
+			}
+			
 			break;
 		}//주민 번호 저장 완료
+		
 		
 		//전화번호 저장, 위쪽에서 사용한 변수 재사용
 		String phoneNumber = "";
@@ -198,6 +204,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 			break;
 		}
 		
+		
 		boolean Booladdress = true;
 		System.out.println("주소를 입력, 없으면 0");
 		String address = MenuViewer.sc.next();
@@ -207,25 +214,38 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		
 		if(Booladdress && Boolphone) {
 			p[PersonIndex] = new Person4(name, serialNumber, phoneNumber, address);
-			PersonIndex++;
 		}
 		else if (Booladdress) {
 			p[PersonIndex] = new Person3(name, serialNumber, address);
-			PersonIndex++;
 		}
 		else if (Boolphone) {
 			p[PersonIndex] = new Person2(name, serialNumber, phoneNumber);
-			PersonIndex++;
 		}
 		else {
 			p[PersonIndex] = new Person(name, serialNumber);
-			PersonIndex++;
 		}
+		PersonIndex++;
 	}
 
+	//고객 저장시 중복 확인
+	private boolean search(String number) {
+		if(PersonIndex == 0) {//저장되어 있지 않으면 바로 종료
+			return false;
+		}
+		for(int i = 0; i < p.length; i ++) {
+			if(p[i] == null) {
+				break;
+			}
+			if( p[i].getSerialNumber().equals(number)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public void search() {
-		if(p[0] == null) {
+		if(PersonIndex == 0) {
 			System.out.println("\n****저장된 고객정보 없음****\n");
 			return;
 		}
@@ -262,5 +282,7 @@ public class PI implements P {//PI : 고객 클래스를 관리하는 '매니저
 		}
 			System.out.println("일치하는 번호 없음");
 	}
+	
+
 
 }
