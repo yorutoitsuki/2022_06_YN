@@ -98,9 +98,17 @@ class Person4 extends Person {
 		return "\n[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() + ", 전화번호 : " + phoneNumber
 				+ ", 주소 : " + address + " ]\n";
 	}
-
 }
 
+
+
+
+/*
+ * 중복되거나 가독성이 떨어지는 코드는 전부 함수로 치환하여 밑에 따로 빼놓았습니다.
+ * 함수가 어떻게 작성 되었는지 보고 싶으면 ctrl + 왼쪽 클릭
+ * 함수가 쓰인 곳을 알고 싶으면 함수 이름에 마우스를 클릭하면
+ * 오른쪽 슬라이드 바 에서 표시되는 지점이 있습니다, 그곳이 함수가 쓰인곳 입니다.
+ */
 public class PI implements P {// PI : 고객 클래스를 관리하는 '매니저 클래스'(이 클래스만 외부에 알리면 됨)
 //	private ArrayList<Person> person;
 	private Person[] p;
@@ -114,21 +122,15 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	@Override
 	public void input() {
 		if(p.length == PersonIndex) {
-			System.out.println("관리 범위를 초과합니다");
+			System.out.println("\n****관리 범위를 초과합니다****\n");
 			return;
 		}
-		
 		////////////////////////////////////////////////////////////////////////////////////////////
-		System.out.println("이름?");// 이름 저장 시작
-		String name = MenuViewer.sc.nextLine().trim();
-		for (int i = 0; i < name.length(); i++) {// 특수문자, 숫자 입력 감지
-			int temp = (int) name.charAt(i);//여러조건에서 연산이 발생하는 경우 미리 연산되는 값을 저장해 놓으면 연산 효율이 상승 
-			if ((0 <= temp && temp <= 64) || (91 <= temp && temp <= 96) || (123 <= temp && temp <= 127)) {
-				System.out.println("특수 문자와 숫자 입력은 불가능 합니다");
-				return;
-			}
-		} // 이름 저장 끝
-		
+		String name = "0";// 이름 저장 시작
+		while(name.equals("0")) {
+			System.out.println("이름?");
+			name = name(); 
+		}// 이름 저장 끝
 		////////////////////////////////////////////////////////////////////////////////////////////
 		String serialNumber = makeKeyWord();//makeKeyWord 함수를 통해 주민등록번호를 입력받음
 		// 중복 확인 검사
@@ -138,59 +140,10 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		} // 중복 확인 종료
 		// 주민 등록 번호 저장 종료
 		////////////////////////////////////////////////////////////////////////////////////////////
-
 		// 전화 번호 저장 시작
-		String frontNumber;
-		String rearNumber = "";
-		String middleNumber = "";
-		while (true) {// 전화번호 앞자리 저장 시작
-			System.out.println("전화번호 첫번째 자리?(3자리) skip은 0");
-			frontNumber = MenuViewer.sc.nextLine().trim();
-			if (frontNumber.equals("0")) {// skip확인
-				break;
-			}
-			if (frontNumber.length() != 3) {
-				System.out.println("자릿수 확인해주세요(3자리)");
-				continue;
-			}
-			if (isExceptionStringToNumber(frontNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}// 전화번호 앞자리 저장 끝
-
-			System.out.println("전화번호 중간 자리?(4자리) skip은 0");// 전화 번호 중간 자리 저장 시작
-			middleNumber = MenuViewer.sc.nextLine().trim();
-			if (middleNumber.equals("0")) {// skip확인
-				frontNumber = "0";
-				break;
-			}
-			if (middleNumber.length() != 4) {
-				System.out.println("자릿수 확인해주세요(4자리)");
-				continue;
-			}
-			if (isExceptionStringToNumber(middleNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}// 전화 번호 중간 자리 저장 끝
-
-			System.out.println("전화번호 마지막 자리?(4자리) skip은 0");// 전화 번호 뒷자리 저장 시작
-			rearNumber = MenuViewer.sc.nextLine().trim();
-			if (rearNumber.equals("0")) {// skip확인
-				frontNumber = "0";
-				break;
-			}
-			if (rearNumber.length() != 4) {
-				System.out.println("자릿수 확인해주세요(4자리)");
-				continue;
-			}
-			if (isExceptionStringToNumber(rearNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}// 전화 번호 뒷자리 저장 끝
-			break;// 아무 문제 없이 통과 했으면 break에 도달, 전화 번호를 저장하는 반복문에서 탈출
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////
-		// 전화번호 skip 유무 판단
-		String phoneNumber = "0";// skip을 하지 않았으면 0대신 전화번호가 저장됨
-		if (!frontNumber.equals("0")) {
-			phoneNumber = frontNumber.concat("-" + middleNumber).concat("-" + rearNumber);
+		String phoneNumber = phoneNumber();
+		if (!phoneNumber.equals("0")) {// skip을 하지 않았으면 0대신 전화번호가 저장됨
+			phoneNumber = phoneNumber.concat("-" + phoneNumber).concat("-" + phoneNumber);
 		}
 		// 전화번호 저장완료
 		////////////////////////////////////////////////////////////////////////////////////////////
@@ -199,16 +152,16 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		while (true) {
 			System.out.println("주소를 입력, skip은 0");
 			address = MenuViewer.sc.nextLine();
-			if (address.equals("0")) {
+			if (address.equals("0")) {//주소 스킵 확인
 				break;// skip
 			}
-			if (addressCheck(address)) {
+			if (addressCheck(address)) {//주소에 "-",공백 문자 외 특수문자 존재하는지 검색
 				continue;
 			}
 			break;// 성공적으로 저장되었으면 반복문 탈출
 		} // 주소 저장 끝
 			////////////////////////////////////////////////////////////////////////////////////////////
-		Person temp = inputFinalStep(name, serialNumber, phoneNumber, address);// 최종 단계, 입력을 바탕으로 저장하는 함수에 전달
+		Person temp = inputFinalStep(name, serialNumber, phoneNumber, address);// 최종 단계, 입력을 바탕으로 임시 객체 생성
 		while (true) {
 			System.out.println(showPersonToString(temp));
 			System.out.println("고객 정보가 맞습니까? Y/N");
@@ -301,6 +254,65 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		return -1;
 	}// 주민 번호 index 확인용 끝
 	////////////////////////////////////////////////////////////////////////////////////////////
+	private String phoneNumber() {//전화번호 저장 함수
+		while (true) {// 전화번호 앞자리 저장 시작
+			String frontNumber;
+			String rearNumber = "";
+			String middleNumber = "";
+			System.out.println("전화번호 첫번째 자리?(3자리) skip은 0");
+			frontNumber = MenuViewer.sc.nextLine().trim();
+			if (frontNumber.equals("0")) {// skip확인
+				return "0";
+			}
+			if (frontNumber.length() != 3) {
+				System.out.println("자릿수 확인해주세요(3자리)");
+				continue;
+			}
+			if (isExceptionStringToNumber(frontNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
+				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
+			}// 전화번호 앞자리 저장 끝
+
+			System.out.println("전화번호 중간 자리?(4자리) skip은 0");// 전화 번호 중간 자리 저장 시작
+			middleNumber = MenuViewer.sc.nextLine().trim();
+			if (middleNumber.equals("0")) {// skip확인
+				return "0";
+			}
+			if (middleNumber.length() != 4) {
+				System.out.println("자릿수 확인해주세요(4자리)");
+				continue;
+			}
+			if (isExceptionStringToNumber(middleNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
+				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
+			}// 전화 번호 중간 자리 저장 끝
+
+			System.out.println("전화번호 마지막 자리?(4자리) skip은 0");// 전화 번호 뒷자리 저장 시작
+			rearNumber = MenuViewer.sc.nextLine().trim();
+			if (rearNumber.equals("0")) {// skip확인
+				return "0";
+			}
+			if (rearNumber.length() != 4) {
+				System.out.println("자릿수 확인해주세요(4자리)");
+				continue;
+			}
+			if (isExceptionStringToNumber(rearNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
+				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
+			}// 전화 번호 뒷자리 저장 끝
+			return frontNumber.concat("-"+middleNumber).concat("-"+rearNumber);// 아무 문제 없이 통과 했으면 도달
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////
+	private String name() {//이름 저장 함수
+		String name = MenuViewer.sc.nextLine().trim();
+		for (int i = 0; i < name.length(); i++) {// 특수문자, 숫자 입력 감지
+			int temp = (int) name.charAt(i);//여러조건에서 연산이 발생하는 경우 미리 연산되는 값을 저장해 놓으면 연산 효율이 상승 
+			if ((0 <= temp && temp <= 64) || (91 <= temp && temp <= 96) || (123 <= temp && temp <= 127)) {
+				System.out.println("특수 문자와 숫자 입력은 불가능 합니다");
+				return "0";
+			}
+		}
+		return name;
+	}//이름 저장함수 종료
+	////////////////////////////////////////////////////////////////////////////////////////////
 	// 주소 확인 함수 시작
 	private boolean addressCheck(String address) {
 		for (int i = 0; i < address.length(); i++) {// 특수문자 입력 감지
@@ -357,24 +369,25 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		}
 	}// 데이터 확인용 함수 종료
 	////////////////////////////////////////////////////////////////////////////////////////////
-	private String makeKeyWord() {//조회, 삭제용 키워드 생성 시작
+	private String makeKeyWord() {//저장, 조회, 삭제용 키워드 생성 시작
 		while(true) {
-			System.out.println("주민 등록 번호 앞자리 입력");
+			System.out.println("주민 등록 번호 앞자리 입력(7자리)");
 			String frontNumber = MenuViewer.sc.nextLine();
-			if(isExceptionStringToNumber(frontNumber)) {
-				continue;
-			}
 			if (frontNumber.length() != 7) {
-				System.out.println("7자리가 아닙니다.");
+				System.out.println("7자리가 숫자가 아닙니다.");
 				continue;
 			}
-			System.out.println("주민 등록 번호 뒷자리 입력");
-			String rearNumber = MenuViewer.sc.nextLine();
 			if(isExceptionStringToNumber(frontNumber)) {
 				continue;
 			}
+			
+			System.out.println("주민 등록 번호 뒷자리 입력(7자리)");
+			String rearNumber = MenuViewer.sc.nextLine();
 			if (rearNumber.length() != 7) {
-				System.out.println("7자리가 아닙니다.");
+				System.out.println("7자리 숫자가 아닙니다.");
+				continue;
+			}
+			if(isExceptionStringToNumber(rearNumber)) {
 				continue;
 			}
 			return frontNumber.concat("-"+rearNumber);
