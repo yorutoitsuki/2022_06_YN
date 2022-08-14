@@ -128,39 +128,11 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 				return;
 			}
 		} // 이름 저장 끝
-			////////////////////////////////////////////////////////////////////////////////////////////
-		String frontNumber;
-		String rearNumber;
-		while (true) {// 주민 등록 번호 앞자리 저장 시작
-			System.out.println("주민 등록 번호 앞자리?(7자리)");
-			frontNumber = MenuViewer.sc.nextLine().trim();
-			if (numberIntegrityCheck(frontNumber)) {// 숫자 무결성 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}
-			if (frontNumber.length() != 7) {
-				System.out.println("7자리 숫자가 필요합니다");
-				continue;
-			}
-			break;
-		} // 주민 등록 번호 앞자리 저장 끝
-
-		while (true) {// 주민 등록 번호 뒷자리 저장 시작
-			System.out.println("주민 등록 번호 뒷자리?(7자리)");
-			rearNumber = MenuViewer.sc.nextLine().trim();
-			if (numberIntegrityCheck(rearNumber)) {// 숫자 무결성 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}
-			if (rearNumber.length() != 7) {
-				System.out.println("7자리 숫자가 필요합니다");
-				continue;
-			}
-			break;
-		} // 주민 등록 번호 뒷자리 저장 끝
-
+		
 		////////////////////////////////////////////////////////////////////////////////////////////
+		String serialNumber = makeKeyWord();//makeKeyWord 함수를 통해 주민등록번호를 입력받음
 		// 중복 확인 검사
-		String serialNumber = frontNumber.concat("-" + rearNumber);
-		if (serialNumberPK(serialNumber)) {
+		if (serialNumberIndex(serialNumber) >= 0) {
 			System.out.println("이미 등록된 번호입니다");
 			return;
 		} // 중복 확인 종료
@@ -168,6 +140,8 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		////////////////////////////////////////////////////////////////////////////////////////////
 
 		// 전화 번호 저장 시작
+		String frontNumber;
+		String rearNumber = "";
 		String middleNumber = "";
 		while (true) {// 전화번호 앞자리 저장 시작
 			System.out.println("전화번호 첫번째 자리?(3자리) skip은 0");
@@ -175,13 +149,13 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			if (frontNumber.equals("0")) {// skip확인
 				break;
 			}
-			if (numberIntegrityCheck(frontNumber)) {// 숫자 무결성 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}
 			if (frontNumber.length() != 3) {
 				System.out.println("자릿수 확인해주세요(3자리)");
 				continue;
-			} // 전화번호 앞자리 저장 끝
+			}
+			if (isExceptionStringToNumber(frontNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
+				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
+			}// 전화번호 앞자리 저장 끝
 
 			System.out.println("전화번호 중간 자리?(4자리) skip은 0");// 전화 번호 중간 자리 저장 시작
 			middleNumber = MenuViewer.sc.nextLine().trim();
@@ -189,13 +163,13 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 				frontNumber = "0";
 				break;
 			}
-			if (numberIntegrityCheck(middleNumber)) {// 숫자 무결성 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}
 			if (middleNumber.length() != 4) {
 				System.out.println("자릿수 확인해주세요(4자리)");
 				continue;
-			} // 전화 번호 중간 자리 저장 끝
+			}
+			if (isExceptionStringToNumber(middleNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
+				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
+			}// 전화 번호 중간 자리 저장 끝
 
 			System.out.println("전화번호 마지막 자리?(4자리) skip은 0");// 전화 번호 뒷자리 저장 시작
 			rearNumber = MenuViewer.sc.nextLine().trim();
@@ -203,13 +177,13 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 				frontNumber = "0";
 				break;
 			}
-			if (numberIntegrityCheck(rearNumber)) {// 숫자 무결성 검사함수를 통하여 무결성 검사.
-				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
-			}
 			if (rearNumber.length() != 4) {
 				System.out.println("자릿수 확인해주세요(4자리)");
 				continue;
-			} // 전화 번호 뒷자리 저장 끝
+			}
+			if (isExceptionStringToNumber(rearNumber)) {// 숫자 검사함수를 통하여 무결성 검사.
+				continue;// 문제가 있으면 true를 반환, 문제가 없으면 false를 반환
+			}// 전화 번호 뒷자리 저장 끝
 			break;// 아무 문제 없이 통과 했으면 break에 도달, 전화 번호를 저장하는 반복문에서 탈출
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////
@@ -282,8 +256,9 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		}
 		System.out.println("삭제 하고 싶은 고객의 주민 번호 입력");
 		int index = serialNumberIndex(makeKeyWord());
+		//makeKeyWord 함수로 KeyWord 생성, 만들어진 KeyWord를 인덱스 검사 함수에 바로 전달, 인덱스 번호 획득
 		if(index < 0) {
-			System.out.println("저장되어 있는 데이터가 없습니다. 메인으로 돌아갑니다");
+			System.out.println("일치하는 데이터가 없습니다. 메인으로 돌아갑니다");
 			return;
 		}
 		while (true) {
@@ -313,20 +288,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		return false;
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////
-	// 주민 번호 중복 확인용 함수
-	private boolean serialNumberPK(String serialNumber) {
-		for (int i = 0; i < p.length; i++) {
-			if (p[i] == null) {
-				break;
-			}
-			if (p[i].getSerialNumber().equals(serialNumber)) {
-				return true;
-			}
-		}
-		return false;
-	}// 주민 번호 중복 확인용 끝
-	////////////////////////////////////////////////////////////////////////////////////////////
-	// 주민 번호 index 확인용 함수
+	// 주민 번호 index 확인용 함수, 중복 확인도 가능, 존재하지 않으면 -1을 반환, 반환받은게 0이상이면 존재(중복)
 	private int serialNumberIndex(String serialNumber) {
 		for (int i = 0; i < p.length; i++) {
 			if (p[i] == null) {
@@ -341,7 +303,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// 주소 확인 함수 시작
 	private boolean addressCheck(String address) {
-		for (int i = 0; i < address.length(); i++) {// 특수문자, 숫자 입력 감지
+		for (int i = 0; i < address.length(); i++) {// 특수문자 입력 감지
 			int temp = (int) address.charAt(i);
 			// if문에 들어가기 전 연산이 발생하는 경우, 따로 저장해 놓으면 추가 연산이 필요 없어지므로 연산 효율이 상승
 			// 공백은 아스키 코드로 32
@@ -355,9 +317,12 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	}// 주소 확인 함수 끝
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// 입력 문자의 숫자 무결성(Integrity) 확인하는 함수, 문제가 있으면 true, 없으면 false반환
-	private boolean numberIntegrityCheck(String number) {
+	private boolean isExceptionStringToNumber(String number) {
 		try {// 숫자 확인//숫자만 있지 않으면 예외 발생, 변환된 숫자를 저장할 필요는 없음 고로 변환된 숫자를 저장할 변수는 안적음
-			Double.parseDouble(number);
+			if(Long.parseLong(number)<0) {
+				System.out.println("음수는 안됩니다.");
+				return true;
+			}
 		} catch (NumberFormatException e) {
 			System.out.println("입력된것 : " + number);
 			System.out.println("숫자를 넣어주세요");
@@ -396,7 +361,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		while(true) {
 			System.out.println("주민 등록 번호 앞자리 입력");
 			String frontNumber = MenuViewer.sc.nextLine();
-			if(numberIntegrityCheck(frontNumber)) {
+			if(isExceptionStringToNumber(frontNumber)) {
 				continue;
 			}
 			if (frontNumber.length() != 7) {
@@ -405,7 +370,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			}
 			System.out.println("주민 등록 번호 뒷자리 입력");
 			String rearNumber = MenuViewer.sc.nextLine();
-			if(numberIntegrityCheck(frontNumber)) {
+			if(isExceptionStringToNumber(frontNumber)) {
 				continue;
 			}
 			if (rearNumber.length() != 7) {
@@ -418,7 +383,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	private void deleteSequence(int index) {//삭제 함수 시작
 		for(int i = index; i < p.length; i++) {//작동개념은 1번부터, 하지만 오류 발생방지와 효율적인 연산을 위해 작성은 3번부터 해야함
-			if(index == p.length) {//3.i+1이 p.length를 넘어가면 예외가 발생, 예외 발생을 방지하기 위해서 가장 먼저 확인해야함
+			if(index == p.length-1) {//3.i가 p.length-1과 같으면 배열이 끝나는곳, 예외 발생을 방지하기 위해서 가장 먼저 확인해야함
 				p[i] = null;
 			}
 			if(p[i] == null) {//2.i번째 데이터를 덮어씌우다가 null을 만나면 그 이후의 데이터는 전부 null, 함수 종료
