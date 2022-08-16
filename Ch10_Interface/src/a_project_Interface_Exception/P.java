@@ -57,7 +57,9 @@ public interface P {
 	int INPUT = 1, SEARCH = 2, DELETE = 3, EXIT = 4;
 	
 	//1. 이름과 주민등록번호(반드시), 전화번호와 주소(옵션)를 입력
-	void input();//public abstract 생략
+	void input();
+	//void input() throws PersonSizeException;//public abstract 생략
+	//메서드 오버라이딩(재정의 규칙 3)예외는 부모 클래스 메서드의 예외보다 더 많이 선언할 수 없다.
 	
 	//2. 주민등록번호를 기반으로 고객의 이름이나 정보를 검색
 	void search();//public abstract 생략

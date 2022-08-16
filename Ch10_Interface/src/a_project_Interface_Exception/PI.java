@@ -120,11 +120,37 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void input() {
-		if(p.length == storedPersonNum) {
-			System.out.println("\n****관리 범위를 초과합니다****\n");
+	public void input() /*throws PersonSizeException*/ {
+//		if(p.length == storedPersonNum) {
+//			System.out.println("\n****관리 범위를 초과합니다****\n");
+//			return;
+//		}
+		try {
+			if(p.length == storedPersonNum) {
+				throw new PersonSizeException();
+			}
+		} catch (PersonSizeException e) {
+			//e.printStackTrace();//e.getMessage()가 포함되어있음
+			//System.out.println(e);//예외 클래스 종류 + 예외 메세지
+			System.out.println(e.getMessage());//예외메세지 출력
 			return;
 		}
+		/*
+		 * 예외 처리 방법 - 1
+		 * try{
+		 * 	예외가 발샐 할 가능성 있는 부분
+		 * (예)	실행문1;
+		 * 		실행문2;=>여기서 예외 발생할 시
+		 * 		실행문3;=>이부분은 실행 안됨
+		 * }catch(예외){
+		 * 	처리
+		 * }finally{
+		 * 	try 영역에 진입하면 예외 발생 유무에 관계 없이 무조건 실행
+		 * }
+		 * 
+		 * 예외 처리 방법 -2
+		 * 예외 발생한 input()를 호출한 메서드로 던져서 치리
+		 */
 		////////////////////////////////////////////////////////////////////////////////////////////
 		String name = "0";// 이름 저장 시작
 		while(name.equals("0")) {
