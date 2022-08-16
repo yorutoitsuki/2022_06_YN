@@ -187,16 +187,16 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void search() {
-		if (emptyCheck()) {
+	public void search() {//조회
+		if (emptyCheck()) {//저장되어 있는 데이터가 있는지 확인
 			return;
 		}
 		String keyWord = makeKeyWord();
 		for (int i = 0; i < p.length; i++) {
-			if (p[i] == null) {
+			if (p[i] == null) {//null을 만나서 더이상 저장된 데이터가 없으면 반복문 중지
 				break;
 			}
-			if (p[i].getSerialNumber().equals(keyWord)) {
+			if (p[i].getSerialNumber().equals(keyWord)) {//일치하는 데이터를 만나면 정보 출력
 				System.out.println(showPersonToString(p[i]));
 				return;
 			}
@@ -209,17 +209,17 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void delete() {
-		if(emptyCheck()) {
+		if(emptyCheck()) {//저장되어 있는 데이터가 있는지 확인
 			return;
 		}
 		System.out.println("삭제 하고 싶은 고객의 주민 번호 입력");
 		int index = serialNumberIndex(makeKeyWord());
 		//makeKeyWord 함수로 KeyWord 생성, 만들어진 KeyWord를 인덱스 검사 함수에 바로 전달, 인덱스 번호 획득
-		if(index < 0) {
+		if(index < 0) {//일치하는 정보가 없으면 인덱스 번호 -1, 0미만
 			System.out.println("일치하는 데이터가 없습니다. 메인으로 돌아갑니다");
 			return;
 		}
-		while (true) {
+		while (true) {//삭제 확인
 			System.out.println(showPersonToString(p[index]));
 			System.out.println("삭제 되는 데이터 입니다. 진행하겠습니까? Y/N");
 			String YorN = MenuViewer.sc.nextLine().trim().toLowerCase();
@@ -237,6 +237,8 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
 	// 비어있는지 없는지 확인
 	private boolean emptyCheck() {
 		if(PersonIndex == 0) {
@@ -244,7 +246,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			return true;
 		}
 		return false;
-	}
+	}//확인 끝
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// 주민 번호 index 확인용 함수, 중복 확인도 가능, 존재하지 않으면 -1을 반환, 반환받은게 0이상이면 존재(중복)
 	private int serialNumberIndex(String serialNumber) {
