@@ -5,7 +5,8 @@ package a_project_Interface_Exception;
 
 
 public class PersonMain {
-
+//	public static void main(String[] args) throws PersonSizeException//예외처리 방법 2
+//	JVM에게 예외를 처리하도록 던지면 e.printStackTrace();호출한 결과로 처리 후 프로그램이 종료
 	public static void main(String[] args) {
 		
 		int personNum = 0;
@@ -37,13 +38,23 @@ public class PersonMain {
 		while(true) {
 			MenuViewer.showMenu();
 			String temp = MenuViewer.sc.nextLine().trim();
-			int choice = 0;
+			int choice = -1;
 			if(temp.equals("1")||temp.equals("2")||temp.equals("3")||temp.equals("4")) {
 				choice = Integer.parseInt(temp);
 			}
 			switch(choice) {
 			case P.INPUT:
-				p.input();
+				try {
+					p.input();
+				} catch (PersonSizeException e) {
+					if(e instanceof PersonSizeException) {
+						System.out.println(((PersonSizeException)e).getMessage());
+					}
+				} catch (NumberFormatException e1) {
+					//continue 여부와 관계없이 finally는 무조건 실행됨
+				} catch (Exception e2) {
+					
+				}
 				break;
 			case P.SEARCH:
 				p.search();

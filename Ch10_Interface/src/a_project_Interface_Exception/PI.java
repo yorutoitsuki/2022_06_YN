@@ -120,21 +120,29 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
-	public void input() /*throws PersonSizeException*/ {
+//	public void input()
+	public void input() throws PersonSizeException  {//예외 처리 방법 2
 //		if(p.length == storedPersonNum) {
 //			System.out.println("\n****관리 범위를 초과합니다****\n");
 //			return;
 //		}
-		try {
-			if(p.length == storedPersonNum) {
-				throw new PersonSizeException();
-			}
-		} catch (PersonSizeException e) {
-			//e.printStackTrace();//e.getMessage()가 포함되어있음
-			//System.out.println(e);//예외 클래스 종류 + 예외 메세지
-			System.out.println(e.getMessage());//예외메세지 출력
-			return;
+		
+//		try {//예외처리 방법 1
+//			if(p.length == storedPersonNum) {
+//				throw new PersonSizeException();
+//			}
+//		} catch (PersonSizeException e) {
+//			//e.printStackTrace();//e.getMessage()가 포함되어있음
+//			//System.out.println(e);//예외 클래스 종류 + 예외 메세지
+//			System.out.println(e.getMessage());//예외메세지 출력
+//			return;
+//		}
+		
+		//예외처리 방법 2
+		if(p.length == storedPersonNum) {
+			throw new PersonSizeException();
 		}
+		
 		/*
 		 * 예외 처리 방법 - 1
 		 * try{
@@ -155,22 +163,38 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		String name = "0";// 이름 저장 시작
 		while(name.equals("0")) {
 			System.out.println("이름?");
-			name = name(); 
+			name = name();
 		}// 이름 저장 끝
 		////////////////////////////////////////////////////////////////////////////////////////////
-		String serialNumber = makeKeyWord();//makeKeyWord 함수를 통해 주민등록번호를 입력받음
-		// 중복 확인 검사
-		if (serialNumberIndex(serialNumber) >= 0) {
-			System.out.println("이미 등록된 번호입니다");
-			return;
-		} // 중복 확인 종료
+		String serialNumber="";
+		while(true) {//주민등록번호 저장 시작
+			serialNumber = makeKeyWord();//makeKeyWord 함수를 통해 주민등록번호를 입력받음
+			if(!regSerialCheck(serialNumber)) {
+				System.out.println("정상적인 번호가 아닙니다");
+				continue;
+			}
+			// 중복 확인 검사
+			if (serialNumberIndex(serialNumber) >= 0) {
+				System.out.println("이미 등록된 번호입니다");
+				continue;
+			} // 중복 확인 종료
+			break;
+		}
 		// 주민 등록 번호 저장 종료
 		////////////////////////////////////////////////////////////////////////////////////////////
 		////////////////////////////////////////////////////////////////////////////////////////////
 		// 전화 번호 저장 시작
-		String phoneNumber = phoneNumber();
-		if (!phoneNumber.equals("0")) {// skip을 하지 않았으면 0대신 전화번호가 저장됨
-			phoneNumber = phoneNumber.concat("-" + phoneNumber).concat("-" + phoneNumber);
+		String phoneNumber="";
+		while(true) {
+			phoneNumber = phoneNumber();
+			if (!phoneNumber.equals("0")) {// skip을 하지 않았으면 0대신 전화번호가 저장됨
+				phoneNumber = phoneNumber.concat("-" + phoneNumber).concat("-" + phoneNumber);
+				if(!regPhoneCheck(phoneNumber)) {
+					System.out.println("규격에 맞지 않는 번호 입니다");
+					continue;
+				}
+			}
+			break;
 		}
 		// 전화번호 저장완료
 		////////////////////////////////////////////////////////////////////////////////////////////
@@ -349,12 +373,9 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	private String name() {//이름 저장 함수
 		String name = MenuViewer.sc.nextLine().trim();
-		for (int i = 0; i < name.length(); i++) {// 특수문자, 숫자 입력 감지
-			int temp = (int) name.charAt(i);//여러조건에서 연산이 발생하는 경우 미리 연산되는 값을 저장해 놓으면 연산 효율이 상승 
-			if ((0 <= temp && temp <= 64) || (91 <= temp && temp <= 96) || (123 <= temp && temp <= 127)) {
-				System.out.println("특수 문자와 숫자 입력은 불가능 합니다");
-				return "0";
-			}
+		if(!regNameCheck(name)) {
+			System.out.println("숫자와 특수문자는 입력이 불가능 합니다");
+			return "0";
 		}
 		return name;
 	}//이름 저장함수 종료
@@ -417,15 +438,16 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	private String makeKeyWord() {//저장, 조회, 삭제용 키워드 생성 시작
 		while(true) {
-			System.out.println("주민 등록 번호 앞자리 입력(7자리)");
+			System.out.println("주민 등록 번호 앞자리 입력(6자리)");
 			String frontNumber = MenuViewer.sc.nextLine();
-			if (frontNumber.length() != 7) {
-				System.out.println("7자리가 숫자가 아닙니다.");
+			if (frontNumber.length() != 6) {
+				System.out.println("6자리가 숫자가 아닙니다.");
 				continue;
 			}
 			if(isExceptionStringToNumber(frontNumber)) {
 				continue;
 			}
+			
 			
 			System.out.println("주민 등록 번호 뒷자리 입력(7자리)");
 			String rearNumber = MenuViewer.sc.nextLine();
@@ -454,4 +476,32 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		storedPersonNum--;
 	}//삭제 함수 종료
 	////////////////////////////////////////////////////////////////////////////////////////////
+	private boolean regSerialCheck(String serialNumber) {
+		/*
+		 * 예) 123456 - 1234567
+		 * 	1. 첫 6자리 : 12 출생년도
+		 * 				34 출생 월
+		 * 				45 출생 일
+		 * 		뒤 7 자리 : 1 성별코드
+		 * 					2345 지역코드
+		 * 					6 출생신고지 기준 접수 순번
+		 * 					7 검증번호 앞 12자리 숫자를 특정 공식에 대입 시 딱 하나의 숫자만 나올 수 있음
+		 * ^\\d{2} = ^\[0-9]{2} 출생연도 ^00~99로 시작
+		 * (0[1-9]|1[0-2]) 출생 월 01~09 또는 10~12
+		 * (0[1-9]|[12][0-9]|[3][01])출생 일 01~09 또는 10~19, 20~29 또는 30,31
+		 * 
+		 * \\-[1-4][0-9]{6} 첫자리는 1~4중 하나, 나머지 6자리는 0~8사이 수
+		 */
+		String regExSerialNumber = "^\\d{2}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|[3][0-1])\\-[1-4][0-9]{6}$";
+		return serialNumber.matches(regExSerialNumber);
+	}
+	private boolean regPhoneCheck(String phoneNumber) {
+		String regExpPhoneNumber = "^\\d{3}-\\d{3,4}-\\d{4}$";
+		//\d:숫자[0-9]와 동일, \D:숫자를 제외한 모든 문자
+		return phoneNumber.matches(regExpPhoneNumber);
+	}
+	private boolean regNameCheck(String name) {
+		String regExpName = "^[가-힣a-zA-Z]{2,}";
+		return name.matches(regExpName);
+	}
 }
