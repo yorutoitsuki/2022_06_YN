@@ -54,7 +54,7 @@
 package a_project_Interface_Exception;
 
 public interface P {
-	int INPUT = 1, SEARCH = 2, EXIT = 3;
+	int INPUT = 1, SEARCH = 2, DELETE = 3, EXIT = 4;
 	
 	//1. 이름과 주민등록번호(반드시), 전화번호와 주소(옵션)를 입력
 	void input();//public abstract 생략
@@ -62,33 +62,7 @@ public interface P {
 	//2. 주민등록번호를 기반으로 고객의 이름이나 정보를 검색
 	void search();//public abstract 생략
 	
-	//-------------------------인터페이스 문법적 설명을 위해 아래 코드 추가--------------------//
-	
-	//예외-1 : 인터페이스를 구현한 모든 클래스에서 "클래스 생성과 무관하게 사용가능"
-	public static int add(int...arr) {//p.add(10,20,30);
-		int hap = 0;
-		for(int temp:arr) {
-			hap += temp;
-		}
-		//p1()//static이 아니므로 후출 불가
-		//p2();//static 이므로 호출가능
-		return hap;
-	}
-	
-	//예외-2 : 그대로 사용하기 싫은 자손클래스만 재정의하면 됨
-	public default void show() {
-		System.out.println("[정보 출력]");
-		//p1();
-	}
-	
-	//예외-3 : 자바9 부터 사용되므로 자바 8에서는 오류 발생
-//	private void p1() {
-//		System.out.println("-----------------");
-//	}
-//	
-//	private static void p2() {
-//		System.out.println("-----------------");
-//	}
+	void delete();
 }
 
 

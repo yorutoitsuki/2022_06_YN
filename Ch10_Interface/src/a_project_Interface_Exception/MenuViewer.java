@@ -14,9 +14,10 @@ public class MenuViewer {
 		System.out.println("선택하세요...");
 		System.out.println("1. 고객 데이터 [입력]");
 		System.out.println("2. 주민등록번호로 이름과 전화번호 또는 주소 [검색]");
-		System.out.println("3. 프로그램 [종료]");
+		System.out.println("3. 주민등록번호로 고객 데이터 [삭제]");
+		System.out.println("4. 프로그램 [종료]");
 		
-		System.out.print("선택(1~3 사이 정수 입력) > ");
+		System.out.print("선택(1~4 사이 정수 입력) > ");
 		
 		
 		

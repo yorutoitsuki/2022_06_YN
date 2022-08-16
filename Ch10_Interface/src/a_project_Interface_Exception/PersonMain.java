@@ -32,18 +32,15 @@ public class PersonMain {
 		 * '매니저 클래스'로 객체 생성하고 인터페이스 P로 대입받음
 		 * (PI객체가 자동으로 P타입으로 형변환되어 받아들임)
 		 */
-		
+		MenuViewer.sc.nextLine();
 		P p = new PI(personNum);
 		while(true) {
 			MenuViewer.showMenu();
-			String temp = MenuViewer.sc.next().trim();
+			String temp = MenuViewer.sc.nextLine().trim();
 			int choice = 0;
-			if(temp.equals("1")||temp.equals("2")||temp.equals("3")) {
+			if(temp.equals("1")||temp.equals("2")||temp.equals("3")||temp.equals("4")) {
 				choice = Integer.parseInt(temp);
 			}
-			
-			
-			
 			switch(choice) {
 			case P.INPUT:
 				p.input();
@@ -55,8 +52,11 @@ public class PersonMain {
 				System.out.println("프로그램을 종료합니다");
 				return;
 //				System.exit(0);//강제종료
+			case P.DELETE:
+				p.delete();
+				break;
 			default:
-				System.out.println("\n****1~3사이의 정수를 입력해주세요****\n");
+				System.out.println("\n****1~4사이의 정수를 입력해주세요****\n");
 			}
 		}
 		
