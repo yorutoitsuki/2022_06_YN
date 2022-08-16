@@ -112,7 +112,7 @@ class Person4 extends Person {
 public class PI implements P {// PI : 고객 클래스를 관리하는 '매니저 클래스'(이 클래스만 외부에 알리면 됨)
 //	private ArrayList<Person> person;
 	private Person[] p;
-	private int PersonIndex = 0;
+	private int storedPersonNum = 0;
 
 	public PI(int personNum) {
 //		person = new ArrayList<>();
@@ -121,7 +121,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void input() {
-		if(p.length == PersonIndex) {
+		if(p.length == storedPersonNum) {
 			System.out.println("\n****관리 범위를 초과합니다****\n");
 			return;
 		}
@@ -171,8 +171,8 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			String YorN = MenuViewer.sc.nextLine().trim().toLowerCase();
 			switch (YorN) {
 			case "y":
-				p[PersonIndex] = temp;
-				PersonIndex++;
+				p[storedPersonNum] = temp;
+				storedPersonNum++;
 				System.out.println("저장 되었습니다.");
 				return;
 			case "n":
@@ -241,7 +241,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// 비어있는지 없는지 확인
 	private boolean emptyCheck() {
-		if(PersonIndex == 0) {
+		if(storedPersonNum == 0) {
 			System.out.println("\n저장된 고객 정보 없음\n");
 			return true;
 		}
@@ -411,7 +411,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			}
 			p[i] = p[i+1];//1.i번째 데이터를 i+1번째 데이터로 덮어씌움
 		}
-		PersonIndex--;
+		storedPersonNum--;
 	}//삭제 함수 종료
 	////////////////////////////////////////////////////////////////////////////////////////////
 }
