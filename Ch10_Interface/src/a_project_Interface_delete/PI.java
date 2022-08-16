@@ -45,7 +45,7 @@ class Person2 extends Person {
 
 	@Override
 	public String toString() {
-		return "\n[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() + ", 전화번호 : " + phoneNumber
+		return "\n[ 이름 : " + getName() + ", 주민등록 번호 : " + getSerialNumber() + ", 전화번호 : " + phoneNumber
 				+ " ]\n";
 	}
 }
@@ -67,7 +67,7 @@ class Person3 extends Person {
 
 	@Override
 	public String toString() {
-		return "\n[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() + ", 주소 : " + address + " ]\n";
+		return "\n[ 이름 : " + getName() + ", 주민등록 번호 : " + getSerialNumber() + ", 주소 : " + address + " ]\n";
 	}
 }
 
@@ -95,7 +95,7 @@ class Person4 extends Person {
 
 	@Override
 	public String toString() {
-		return "\n[ 이름 : " + super.getName() + ", 주민등록 번호 : " + super.getSerialNumber() + ", 전화번호 : " + phoneNumber
+		return "\n[ 이름 : " + getName() + ", 주민등록 번호 : " + getSerialNumber() + ", 전화번호 : " + phoneNumber
 				+ ", 주소 : " + address + " ]\n";
 	}
 }
@@ -212,6 +212,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		if(emptyCheck()) {//저장되어 있는 데이터가 있는지 확인
 			return;
 		}
+		showAllPersonInfo();
 		System.out.println("삭제 하고 싶은 고객의 주민 번호 입력");
 		int index = serialNumberIndex(makeKeyWord());
 		//makeKeyWord 함수로 KeyWord 생성, 만들어진 KeyWord를 인덱스 검사 함수에 바로 전달, 인덱스 번호 획득
@@ -234,6 +235,18 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 			default:
 				System.out.println("Y 또는 N을 입력해주세요");
 			}
+		}
+	}
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////////////////////
+	private void showAllPersonInfo() {
+		System.out.println("----------고객 정보 List----------------");
+		for(int i = 0; i < p.length; i++) {
+			if(p[i] == null) {
+				break;
+			}
+			System.out.println(showPersonToString(p[i]));
 		}
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////
@@ -405,6 +418,7 @@ public class PI implements P {// PI : 고객 클래스를 관리하는 '매니�
 		for(int i = index; i < p.length; i++) {//작동개념은 1번부터, 하지만 오류 발생방지와 효율적인 연산을 위해 작성은 3번부터 해야함
 			if(index == p.length-1) {//3.i가 p.length-1과 같으면 배열이 끝나는곳, 예외 발생을 방지하기 위해서 가장 먼저 확인해야함
 				p[i] = null;
+				break;
 			}
 			if(p[i] == null) {//2.i번째 데이터를 덮어씌우다가 null을 만나면 그 이후의 데이터는 전부 null, 함수 종료
 				break;
