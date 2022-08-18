@@ -20,6 +20,10 @@ public class CalculatorMain {
 		
 		Calc calc = comploeteCalc;
 		calc.description();
+		
+		int[] arr = {1,2,3,4,5};
+		System.out.println(Calc.hap(arr));
+		//주의 부모 인터페이스의 static 멤버
 	}
 
 }
