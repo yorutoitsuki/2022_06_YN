@@ -7,7 +7,7 @@ public interface Calc {
 	int add(int num1, int num2);
 	int sub(int num1, int num2);
 	int mul(int num1, int num2);
-	int div(int num1, int num2);
+	double div(int num1, int num2);
 	
 	//추상메서드 아닌 예외 : 완성된 메서드
 	//static 메서드 : 공유용 => 재정의 불가
@@ -25,7 +25,11 @@ public interface Calc {
 	}
 	
 	//private 메서드 : 해당 인터페이스 안에서만 사용가능 (1.9 버전 이상에서만 가능)
-	private void myMethod() {
-		System.out.println("private 메서드 입니다.");
-	}
+//	private void myMethod() {
+//		System.out.println("private 메서드 입니다.");
+//	}
+//	
+//	private static void myStaticMethod() {
+//		System.out.println("private 메서드 입니다.");
+//	}
 }
