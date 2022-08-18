@@ -19,7 +19,7 @@ public class CalculatorMain {
 		 */
 		
 		Calc calc = comploeteCalc;
-		calc.description();
+		calc.description();//재정의
 		
 		int[] arr = {1,2,3,4,5};
 		System.out.println(Calc.hap(arr));
