@@ -15,5 +15,16 @@ public class CompleteCalc extends Calculator{
 			return ERROR;
 		}
 	}
+	
+	//추가
+	public void showInfo() {
+		System.out.println("Calc 인터페이스 구현함");
+	}
+
+	@Override
+	public void description() {
+		System.out.println("계산기를 구현합니다");
+	}
+	
 
 }
