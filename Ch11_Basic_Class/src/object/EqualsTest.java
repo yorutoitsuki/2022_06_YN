@@ -69,7 +69,10 @@ public class EqualsTest {
 		else {
 			System.out.println("값이 다르다, 다른 객체");
 		}
-		
+		/*
+		 * hashCode() 재정의 전 : Object의 hashCode() 호출하여 서로 다른 코드값이 나옴(이유? 주소로 만들어서 ... )
+		 * hashCode() 재정의 후 : Student의 hashCode() 호출하여 서로 같은 코드값이 나옴(이유? 값으로 만들어서...)
+		 */
 		if(s1.equals(s2)) {
 			System.out.println("값이 같다. 동일한 객체");
 		}
@@ -120,7 +123,24 @@ public class EqualsTest {
 		
 		System.out.println("저장된 객체 수 : " + hset.size());
 		
+		System.out.println("---------------------------------------------------");
+		String str1 = new String("abc");
+		String str2 = new String("abc");
 		
+		System.out.println(str1.hashCode());
+		System.out.println(str2.hashCode());
+		
+		System.out.println(System.identityHashCode(str1));
+		System.out.println(System.identityHashCode(str2));
+		
+		
+		Integer i1 = new Integer(123);
+		Integer i2 = 123;
+		System.out.println(i1.hashCode());
+		System.out.println(i2.hashCode());
+		
+		System.out.println(System.identityHashCode(i1));
+		System.out.println(System.identityHashCode(i2));
 		
 		
 	}
