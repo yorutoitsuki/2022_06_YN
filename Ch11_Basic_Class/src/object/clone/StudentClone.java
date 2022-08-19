@@ -1,3 +1,18 @@
+
+/*
+ * Object의 clone 메서드
+ * 1. 얕은 복제 : 멤버변수(=필드)만 복제
+ * 1-1. 기본타입(int, double, char, boolean....) : 값을 복사
+ * 1-2. 클래스타입(String, Integer..객체의 주소) : 객체의 주소 복사
+ * 
+ * 2. 얕은 복제의 문제점
+ * 복제 객체에서 참조변수가 참조하는 객체의 값 또는 주소를 변경하면
+ * 원본 객체도 참조 변수가 참조하는 객체의 값 또는 주소도 함께 변경
+ * (단, String은 제외됨)
+ */
+
+
+
 package object.clone;
 
 import java.util.Arrays;
@@ -22,10 +37,10 @@ class Computer{
  * 객체의 clone()메서드 사용을 허용한다는 의미로 Cloneable 인터페이스를 명시해줌
  */
 class Student implements Cloneable{//super : Object
-	int studentID;//ID
+	int studentID;//ID 
 	String studentName;//Name
-	private int[] scores;
-	Computer com;
+	private int[] scores; //깊은 복제 대상
+	Computer com; //깊은 복제 대상
 	public Student(int studentID, String studentName, int[] scores, Computer com) {
 		super();
 		this.studentID = studentID;
