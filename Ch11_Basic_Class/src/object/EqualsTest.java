@@ -142,7 +142,10 @@ public class EqualsTest {
 		System.out.println(System.identityHashCode(i1));
 		System.out.println(System.identityHashCode(i2));
 		
-		
+		/*
+		 * clone, class 타입(배열도 포함)은 같은 주소를 공유하기 때문에 클론 또는 오리지널 수정시 같이 수정됨
+		 * (얉은 복제) , 기본타입(int, double, String(스트링 클래스는 예외) char 등)은 같이 수정되지 않음
+		 */
 	}
 
 }
