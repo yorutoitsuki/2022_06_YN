@@ -1,6 +1,7 @@
 package object;
 
 import java.util.HashSet;
+import java.util.Objects;
 
 class Student {//super : Object
 	private int studentID;//ID
@@ -36,8 +37,7 @@ class Student {//super : Object
 	}
 	@Override
 	public int hashCode() {
-		// TODO 자동 생성된 메소드 스텁
-		return super.hashCode();
+		return Objects.hash(studentID,studentName);
 	}
 	
 	
@@ -106,8 +106,23 @@ public class EqualsTest {
 		 *  -제공 받은 Object의 자식 클래스들(예 : String, Integer 등)의 equal() : 재정의(객체의 '실제값'으로 해쉬코드 만듦)
 		 *  
 		 *  그러나, 우리가 만든 '사용자 정의 클래스'는 Object의 hashCode()와 equals()를 반드시 재정의해서 사용해야 함
+		 *  (예 : Set인터페이스를 구현한 클래스(HashSet)를 사용하려면 재정의해야함)
 		 */
-		HashSet<Student> hash = new HashSet<>();
+		HashSet<Student> hset = new HashSet<>();
+		hset.add(new Student(1, "KMJ"));
+		hset.add(new Student(1, "KMJ"));
+		
+		System.out.println("저장된 객체 수 : " + hset.size());
+		
+		HashSet<String> hset2 = new HashSet<>();
+		hset2.add(new String("KMJ"));
+		hset2.add(new String("KMJ"));
+		
+		System.out.println("저장된 객체 수 : " + hset.size());
+		
+		
+		
+		
 	}
 
 }
