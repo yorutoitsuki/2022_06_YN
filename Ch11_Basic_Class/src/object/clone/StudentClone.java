@@ -34,6 +34,22 @@ class Student implements Cloneable{//super : Object
 		this.com = com;
 	}
 	
+	
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		//1. 먼저 얕은 복제로 객체를 통째로 복사
+		Student cpyStudent = (Student) clone();
+		
+		//2. 깊은 복제의 대상이 되는 객체들을 복제한다
+		//배열복제, Computer 객체 복제
+		cpyStudent.scores = Arrays.copyOf(scores, scores.length);
+		
+		return null;
+	}
+
+
+
 	Student copyStudent() {
 		Student cpyStudent = null;
 		try {
