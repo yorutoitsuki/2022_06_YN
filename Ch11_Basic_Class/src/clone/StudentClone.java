@@ -13,7 +13,7 @@
 
 
 
-package object.clone;
+package clone;
 
 import java.util.Arrays;
 

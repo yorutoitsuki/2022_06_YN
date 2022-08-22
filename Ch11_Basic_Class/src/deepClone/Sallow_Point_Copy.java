@@ -1,4 +1,4 @@
-package object.clone;
+package deepClone;
 
 class Point implements Cloneable {//1.객체를 복제할 수 있는 클래스
 	private int x;
@@ -28,16 +28,16 @@ class Point implements Cloneable {//1.객체를 복제할 수 있는 클래스
 	}
 	
 	@Override//2. Object로 부터 상속받은 clone() 재정의하여 Point객체를 복제할 수 있도록 재정의함
-	protected Object clone() throws CloneNotSupportedException {
+	protected Point clone() throws CloneNotSupportedException {
 		// TODO 자동 생성된 메소드 스텁
-		return super.clone();
+		return (Point)super.clone();
 	}
 }//point end
 
 class Rectangle implements Cloneable{
 	private Point upperLeft, lowerRight;
 	Rectangle(int x1, int y1, int x2, int y2){
-		upperLeft = new Point(x1, y2);
+		upperLeft = new Point(x1, y1);
 		lowerRight = new Point(x2, y2);
 	}
 	
@@ -58,8 +58,10 @@ class Rectangle implements Cloneable{
 	 */
 	@Override
 	protected Rectangle clone() throws CloneNotSupportedException {
-		// TODO 자동 생성된 메소드 스텁
-		return (Rectangle)super.clone();
+		Rectangle temp = (Rectangle)super.clone();
+		temp.upperLeft = this.upperLeft.clone();
+		temp.lowerRight = this.lowerRight.clone();
+		return temp;
 	}
 	
 }
