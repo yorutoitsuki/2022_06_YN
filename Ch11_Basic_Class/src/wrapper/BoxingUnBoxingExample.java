@@ -8,8 +8,8 @@ package wrapper;
  * 
  * 2. 수와 관련되지 않은 Wrapper 클래스(2개, Character, Boolean)의 부모 : Object
  * 
- * 3. Character만 parseCharacter("문자열"); 메서드가 없다.
- * 	(이유? "abc"(문자가 여러개)
+ * 3. Character만 parseCharacter("문자열"); 문자열 -> 문자 1개로 변환 하는 메서드가 없다.
+ * 	(이유? "abc"(문자가 여러개) ->문자 여러 개)
  */
 public class BoxingUnBoxingExample {
 	public static void main(String[] args) {
