@@ -49,7 +49,7 @@ class Rectangle implements Cloneable{
 	}
 	
 	void setPosition(int x1, int y1, int x2, int y2) {
-		upperLeft.setPosition(x1,y2);
+		upperLeft.setPosition(x1,y1);
 		lowerRight.setPosition(x2, y2);
 	}
 	
@@ -64,7 +64,7 @@ class Rectangle implements Cloneable{
 	
 }
 
-public class SallowPointCopy {
+public class Sallow_Point_Copy {
 	public static void main(String[] args) {
 		System.out.println("----Point 복제 테스트----");
 		Point p = new Point(1,1);
@@ -108,6 +108,11 @@ public class SallowPointCopy {
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
+		System.out.print("복제 Rectagle : ");cpyRectangle.showPosition();
+		
+		cpyRectangle.setPosition(2, 2, 7, 7);
+		System.out.println("--위치 변경 후---------");
+		System.out.print("원본 Rectagle : ");orgR.showPosition();
 		System.out.print("복제 Rectagle : ");cpyRectangle.showPosition();
 		
 	}
