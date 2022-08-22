@@ -10,10 +10,17 @@ public class Counter {
 	 * 	직접 재정의하여 사용할 수 있다.
 	 */
 	
+	public Counter(int no) {
+		super();
+		this.no = no;
+	}
+	
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();//Object의  finalize()는 텅 비어서 하는 일이 아무것도 없지만 안정성을 고려해서 삽입
 		System.out.println(no + " Class's finalize() has run");
 		
 	}
+
+	
 }
