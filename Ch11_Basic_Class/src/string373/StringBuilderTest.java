@@ -36,6 +36,8 @@ public class StringBuilderTest {
 		javaStr = javaStr.replace("java", "java program");
 		System.out.println("javaStr replace 이후 : " + System.identityHashCode(javaStr));
 		
+		buffer.delete(0, 0);
+		
 		javaStr = buffer.toString();
 		System.out.println(javaStr);
 		System.out.println("새로 만들어진 javaStr 문자열 주소 : " + System.identityHashCode(javaStr));
