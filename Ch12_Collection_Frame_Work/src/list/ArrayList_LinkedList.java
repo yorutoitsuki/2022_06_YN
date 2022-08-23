@@ -1,5 +1,8 @@
 /*
  * ArrayList와 LinkedList의 속도차를 확인
+ * index 0에 추가가 빈번히 일어나는 상황
+ * 
+ * 결과 : LinkedList가 빠른 성능을 낸다
  */
 
 
@@ -21,13 +24,14 @@ public class ArrayList_LinkedList {
 			list1.add(0, String.valueOf(i));
 		}
 		endTime = System.nanoTime();
-		
+		System.out.println("ArrayList  걸린 시간 : " + (endTime - startTime) + "ns");
 		
 		startTime = System.nanoTime();
 		for(int i  = 0; i < 10000; i++) {
 			list2.add(0, String.valueOf(i));
 		}
 		endTime = System.nanoTime();
+		System.out.println("LinkedList 걸린 시간 : " + (endTime - startTime) + "ns");
 	}
 
 }

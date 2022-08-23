@@ -52,6 +52,8 @@ public class ArrayListExample {
 		 * 재정의 된 메서드가 호출됨
 		 */
 		List<String> list = new ArrayList<String>();
+//		List<String> list = new ArrayList<String>();
+//		List<String> list = new ArrayList<String>();
 		
 		for(String str:list) {
 			System.out.println(str);
@@ -110,6 +112,9 @@ public class ArrayListExample {
 			System.out.println("찾아서 없으면 false -> 삭제 안됨");
 		}
 		System.out.println("모두 삭제");
+		if(list.removeAll(list)) {
+			System.out.println("모두 삭제");
+		}
 		
 	}
 
