@@ -37,6 +37,20 @@ public class HashSetExample {
 		while(itr.hasNext()) {
 			System.out.println(itr.next());
 		}
+		
+		if(set.remove("Str1")) {
+			System.out.println("return true, Str1 has removed");
+		}
+		else {
+			System.out.println("return false, Str1 is not include");
+		}
+		System.out.println("----remove All----");
+		if(set.removeAll(set)) {
+			System.out.println("remove All");
+		}
+		else {
+			System.out.println("Can not remove");
+		}
 	}
 	
 }
