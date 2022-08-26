@@ -156,16 +156,20 @@ public class TreeSetExample {
 		System.out.println(sSet4);
 		
 		System.out.println("지정된 객체보다 큰 값의 객체들을 반환");
-		SortedSet<String> sSet5 = treeSet2.headSet("ba");
+		SortedSet<String> sSet5 = treeSet2.tailSet("bz");
 		System.out.println(sSet5);
 		
 		System.out.println("지정된 객체보다 큰 값의 객체들을 반환");
-		SortedSet<String> sSet6 = treeSet2.headSet("banana", false);
+		SortedSet<String> sSet6 = treeSet2.tailSet("bz", false);
 		System.out.println(sSet6);
 		
 		System.out.println("지정된 객체를 포함하여 큰 값의 객체들을 반환");
-		SortedSet<String> sSet7 = treeSet2.headSet("banana", true);
+		SortedSet<String> sSet7 = treeSet2.tailSet("bz", true);
 		System.out.println(sSet7);
+		
+		treeSet2.removeAll(treeSet2);
+		System.out.println("총 객체 수 : " + treeSet2.size());
+		
 	}
 
 }
