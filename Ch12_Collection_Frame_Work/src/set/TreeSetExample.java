@@ -57,7 +57,7 @@ public class TreeSetExample {
 			System.out.print(temp + " ");
 		}
 		System.out.println();
-		//범위지정(78, true(이상)false(초과),95,true(이상)false(초과))
+		//범위지정(78, true(이상)false(초과),95,true(이하)false(미만))
 		NavigableSet<Integer> treeSetSub2 = treeSet.subSet(78, true, 95, true);
 		for(Integer i:treeSetSub2) {
 			System.out.print(i + " ");
@@ -74,6 +74,98 @@ public class TreeSetExample {
 		while(itr.hasNext()) {
 			System.out.print(itr.next() + " ");
 		}
+		///////////////////////////////////////////////////////////////////////////////////////////////////
+		System.out.println("내림 차순으로 정렬된");
+		NavigableSet<Integer> dSet = treeSet.descendingSet();
+		System.out.println("향상된 For문 이용");
+		for(Integer temp : dSet) {
+			System.out.print(temp + " ");
+		}
+		System.out.println();
+		System.out.println("Iterator 반복자(순회자) 이용");
+		Iterator<Integer> dSetItr = dSet.iterator();
+		while(dSetItr.hasNext()) {
+			System.out.print(dSetItr.next() + " ");
+		}
+		System.out.println();
+		System.out.println("내림차순 정렬된 NavigableSet을 descendingSet()으로 한번 더 호출하면 오름차순 정렬됨");
+		NavigableSet<Integer> aSet = dSet.descendingSet();
+		System.out.println("향상된 For문 이용");
+		for(Integer temp : aSet) {
+			System.out.print(temp + " ");
+		}
+		System.out.println();
+		System.out.println("Iterator 반복자(순회자) 이용");
+		Iterator<Integer> aSetItr = aSet.iterator();
+		while(aSetItr.hasNext()) {
+			System.out.print(aSetItr.next() + " ");
+		}
+//		System.out.println();
+//		System.out.println("제일 낮은 객체부터 꺼내오고 제거한 순서 : ");
+//		while(!treeSet.isEmpty()) {
+//			System.out.print(treeSet.pollFirst() + " ");//제일 낮은 객체부터 꺼내옴
+//		}
+//		System.out.println();
+//		if(treeSet.isEmpty()) {
+//			System.out.println("모두 삭제 되어 있음");
+//		}
+//		else {
+//			System.out.println("비어있지 않음");
+//		}
+		System.out.println();
+		System.out.println("제일 높은 객체부터 꺼내오고 제거한 순서 : ");
+		while(!treeSet.isEmpty()) {
+			System.out.print(treeSet.pollLast() + " ");//제일 높은 객체부터 꺼내옴
+		}
+		System.out.println();
+		if(treeSet.isEmpty()) {
+			System.out.println("모두 삭제 되어 있음");
+		}
+		else {
+			System.out.println("비어있지 않음");
+		}
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		TreeSet<String> treeSet2 = new TreeSet<String>();
+		treeSet2.add("banana");
+		treeSet2.add("cherry");
+		treeSet2.add("apple");
+		treeSet2.add("black");
+		treeSet2.add("school");
+		treeSet2.add("door");
+		treeSet2.add("element");
+		
+		System.out.println(treeSet2);
+		System.out.println("b~e 사이의 단어 검색 : ");
+		//주의 단 끝 개체는 제외됨, e% 은 e보다 더 큰 숫자 if(i <= e || l <= e.length)
+		NavigableSet<String> nav3 = treeSet2.subSet("b", true, "e", true);
+		for(String temp : nav3) {//element 제외됨
+			System.out.print(temp + " ");
+		}
+		System.out.println();
+		System.out.println("----------------------------------------------------------------------------");
+		System.out.println("지정된 객체보다 작은 값의 객체들을 반환");
+		SortedSet<String> sSet2 = treeSet2.headSet("banana");
+		System.out.println(sSet2);
+		
+		System.out.println("지정된 객체보다 작은 값의 객체들을 반환");
+		SortedSet<String> sSet3 = treeSet2.headSet("banana", false);
+		System.out.println(sSet3);
+		
+		System.out.println("지정된 객체를 포함하여 작은 값의 객체들을 반환");
+		SortedSet<String> sSet4 = treeSet2.headSet("banana", true);
+		System.out.println(sSet4);
+		
+		System.out.println("지정된 객체보다 큰 값의 객체들을 반환");
+		SortedSet<String> sSet5 = treeSet2.headSet("ba");
+		System.out.println(sSet5);
+		
+		System.out.println("지정된 객체보다 큰 값의 객체들을 반환");
+		SortedSet<String> sSet6 = treeSet2.headSet("banana", false);
+		System.out.println(sSet6);
+		
+		System.out.println("지정된 객체를 포함하여 큰 값의 객체들을 반환");
+		SortedSet<String> sSet7 = treeSet2.headSet("banana", true);
+		System.out.println(sSet7);
 	}
 
 }
