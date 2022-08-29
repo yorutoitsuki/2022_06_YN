@@ -125,6 +125,7 @@ class Buyer {
 	Buyer(int money) {
 		super();
 		this.money = money;
+		list = new ArrayList<Product>();
 	}
 	
 	void askInfo(Product p) {
@@ -232,11 +233,40 @@ class Buyer {
 //	}
 	void refund(Product p) {
 		//해당 제품을 목록에서 찾아서 있으면 제거
+		if(list.isEmpty()) {
+			System.out.println("구매하신 제품이 없으십니다");
+			return;
+		}else if (p instanceof TV) {
+			if(list.contains((TV)p)) {
+				list.remove((TV)p);
+				money += p.productPrice;
+				bonusPoint -= p.bonusPoint;
+				System.out.println("환불되었습니다");
+				return;
+			}
+		}else if (p instanceof Computer) {
+			if(list.contains((Computer)p)) {
+				list.remove((Computer)p);
+				money += p.productPrice;
+				bonusPoint -= p.bonusPoint;
+				System.out.println("환불되었습니다");
+				return;
+			}
+		}else if (p instanceof Audio) {
+			if(list.contains((Audio)p)) {
+				list.remove((Audio)p);
+				money += p.productPrice;
+				bonusPoint -= p.bonusPoint;
+				System.out.println("환불되었습니다");
+				return;
+			}
+		}
+		System.out.println("해당 제품은 구매하지 않으셨습니다");
 		//환불 받은 돈을 구매자의 돈에 추가
 		//구매자의 보너스 포인트는 감소
 		
 		//해당 제품을 목록에서 찾았는데 없으면
-		System.out.println("구입하신 제품은 저희 매장 제품이 아닙니다.");
+		
 	}
 	
 }
@@ -276,7 +306,7 @@ public class ProductInterfaceArray implements ProductInterface {
 			
 			System.out.print("구매하고 싶은 가전제품 번호 입력. 종료는 stop>");
 			//정수 1~3(O), 1보다 작은 수 or 3보다 큰수(x) / 실수1.23(x)  문자 a ㅁ(x) / stop StOp
-			String tmp = sc.next();
+			String tmp = sc.nextLine();
 			
 			//stop StOp
 			if(tmp.equalsIgnoreCase("stop")) break;
@@ -309,6 +339,21 @@ public class ProductInterfaceArray implements ProductInterface {
 									        b.buy(audio);
 									        break;
 			case ProductInterface.REFUND:
+				System.out.println("환불 하실려는 제품의 이름을 입력해주세요");
+				String refundRequest = sc.nextLine().trim().toLowerCase();
+				switch(refundRequest) {
+				case"tv":
+					b.refund(tv);
+					break;
+				case"computer":
+					b.refund(com);
+					break;
+				case"audio":
+					b.refund(audio);
+					break;
+				default:
+					System.out.println("구입하신 제품은 저희 매장 제품이 아닙니다.");
+				}
             //방법-2
 			//default : System.out.println("잘못된 번호입니다. 다시 입력해 주세요~");
                      //break;				        

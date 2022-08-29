@@ -8,8 +8,14 @@ import java.util.TreeSet;
 public class TreeSetMember {
 	//멤버변수 : Member를 관리하는 TreeSet 타입을 포함관계
 	private TreeSet<Member> treeSet;
-	public TreeSetMember() {
+	public TreeSetMember() {//오름차순 정렬됨
 		treeSet = new TreeSet<Member>();
+	}
+	/*
+	 * Comparator<T> 사용 시 유의점 :TreeSet) 생성자에 'Comparator를 구현한 객체'를 매개값으로 전달해야함
+	 */
+	public TreeSetMember(Member member) {//내림차순 정렬된 TreeSet
+		treeSet = new TreeSet<Member>(member);
 	}
 	
 	public void addMember(Member m) {
