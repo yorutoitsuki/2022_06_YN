@@ -165,6 +165,10 @@ class Buyer {
 	}
 	
 	void summary() {
+		if(list.size() == 0) {
+			System.out.println("아무것도 구매하지 않으셨습니다");
+			return;
+		}
 		int tvCnt = 0;
 		int computerCnt = 0;
 		int audioCnt = 0;
@@ -172,28 +176,19 @@ class Buyer {
 //		String buyList = "";
 		String productList = "";
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i) == null) {
-				break;
-			}
 			if(list.get(i) instanceof TV) {
 				tvCnt++;
-				totalPrice += list.get(i).productPrice;
 //				buyList = addingTotalList(tvCnt, list[i].toString(), buyList);
 			}
 			else if(list.get(i) instanceof Computer) {
 				computerCnt++;
-				totalPrice += list.get(i).productPrice;
 //				buyList = addingTotalList(computerCnt, list[i].toString(), buyList);
 			}
 			else if(list.get(i) instanceof Audio) {
 				audioCnt++;
-				totalPrice += list.get(i).productPrice;
 //				buyList = addingTotalList(audioCnt, list[i].toString(), buyList);
 			}
-		}
-		if((tvCnt + computerCnt + audioCnt) == 0) {
-			System.out.println("아무것도 구매하지 않으셨습니다");
-			return;
+			totalPrice += list.get(i).productPrice;
 		}
 		if(tvCnt > 0) {
 			productList += "TV, ";
@@ -236,32 +231,14 @@ class Buyer {
 		if(list.isEmpty()) {
 			System.out.println("구매하신 제품이 없으십니다");
 			return;
-		}else if (p instanceof TV) {
-			if(list.contains((TV)p)) {
-				list.remove((TV)p);
-				money += p.productPrice;
-				bonusPoint -= p.bonusPoint;
-				System.out.println("환불되었습니다");
-				return;
-			}
-		}else if (p instanceof Computer) {
-			if(list.contains((Computer)p)) {
-				list.remove((Computer)p);
-				money += p.productPrice;
-				bonusPoint -= p.bonusPoint;
-				System.out.println("환불되었습니다");
-				return;
-			}
-		}else if (p instanceof Audio) {
-			if(list.contains((Audio)p)) {
-				list.remove((Audio)p);
-				money += p.productPrice;
-				bonusPoint -= p.bonusPoint;
-				System.out.println("환불되었습니다");
-				return;
-			}
+		}else if(list.remove(p)) {
+			this.money += p.productPrice;
+			this.bonusPoint -= p.bonusPoint;
+			System.out.println(p + "반품 완료");
 		}
-		System.out.println("해당 제품은 구매하지 않으셨습니다");
+		else {
+			System.out.println("해당 제품은 구매하지 않으셨습니다");
+		}
 		//환불 받은 돈을 구매자의 돈에 추가
 		//구매자의 보너스 포인트는 감소
 		
@@ -304,7 +281,7 @@ public class ProductInterfaceArray implements ProductInterface {
 			//ProductInterfaceArray pi2 = (ProductInterfaceArray) pi.menu2();
 			//ProductInterfaceArray pi2 = pi.menu2();//강제형변환하는 번거로움이 사라져 편리함
 			
-			System.out.print("구매하고 싶은 가전제품 번호 입력. 종료는 stop>");
+			System.out.print("구매하고 싶은 가전제품 번호 입력. 반품은 4 종료는 stop>");
 			//정수 1~3(O), 1보다 작은 수 or 3보다 큰수(x) / 실수1.23(x)  문자 a ㅁ(x) / stop StOp
 			String tmp = sc.nextLine();
 			

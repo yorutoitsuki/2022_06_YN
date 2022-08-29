@@ -72,7 +72,13 @@ public class HashMapExample {
 		
 		System.out.println("저장된 전체 객체를 대상으로 삭제하는 방법");
 		System.out.println("3번 객체 삭제 후 값을 리턴 : " + map.remove(3));
-		
+		map.clear();
+		if(map.isEmpty()) {
+			System.out.println("모두 삭제되어 비어있음");
+		}
+		else {
+			System.out.println("비어있지 않음");
+		}
 		
 	}
 
