@@ -22,9 +22,12 @@ public class TreeSetMember {
 		treeSet.add(m);
 		/*
 		 * 	1. TreeSet<Member>() 생성자로 객체 생성
-		 * 	   add() 호출되면 compareTo() 메서드가 자동호출되어 크기를 비교해 가면서 '오름차순' 정렬시켜 저장
+		 * 	   add() 호출되면 compareTo() 메서드가 자동호출되어 크기를 비교해 가면서 '오름차순' 정렬시키며 저장
+		 * 	   (반환 값이 0이면 동일 객체로 인식하여 추가하지 아니함)
 		 * 
-		 * 
+		 * 	2. TreeSet(Member member) 생성자로 객체 생성
+		 * 	   매개변수 member 클래스는 반드시 Comparator인터페이스를 구현해야함
+		 * 	   add() 호출되면 compare() 메서드가 자동호출되어 크기를 비교해 가면서 '내림차순' 정렬시키며 저장
 		 */
 	}
 	public boolean removeMember(Member m) {//멤버 클래스를 인수로 받음
