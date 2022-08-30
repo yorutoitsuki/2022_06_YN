@@ -159,24 +159,24 @@ class Buyer {
 			Product p = list.get(i);
 			if (p instanceof TV) {
 				if (tvCnt == 0) {
-					itemList.concat("TV, ");
+					itemList += ("TV, ");
 				}
 				tvCnt++;
 				totalPrice += p.productPrice;
 			} else if (p instanceof Computer) {
 				if (computerCnt == 0) {
-					itemList.concat("Computer, ");
+					itemList += ("Computer, ");
 				}
 				computerCnt++;
 			} else if (p instanceof Audio) {
 				if (audioCnt == 0) {
-					itemList.concat("Audio, ");
+					itemList += ("Audio, ");
 				}
 				audioCnt++;
 			}
 		}
 		itemList = itemList.substring(0, itemList.length() - 2);
-		itemList.concat(" ]");
+		itemList += (" ]");
 		System.out.println("구매하신 상품은 " + itemList);
 		System.out.println("총 구매하신 수량 : " + (tvCnt + computerCnt + audioCnt));
 		System.out.println("총 금액 : " + totalPrice);
@@ -207,7 +207,7 @@ public class ProductInterfaceArray implements ProductInterface {
 	public void menu() {
 		System.out.println();
 		System.out.println("-----------------------------------------------------");
-		System.out.println("1.TV\t2.Computer\t3.Audio\t 4.refund");
+		System.out.println("1.TV\t2.Computer\t3.Audio\t\t4.refund");
 
 	}
 
@@ -226,7 +226,7 @@ public class ProductInterfaceArray implements ProductInterface {
 		// menu() 호출
 		while (buyer.money > 0) {
 			pi.menu();
-			String choice = sc.nextLine().trim();
+			String choice = sc.nextLine();
 			if(choice.equals("stop")) {
 				break;
 			}
@@ -260,7 +260,6 @@ public class ProductInterfaceArray implements ProductInterface {
 					default:
 						System.out.println("해당 제품은 저희 매장에서 취급하지 않습니다");
 					}
-					sc.close();
 				}
 				break;
 			default:
