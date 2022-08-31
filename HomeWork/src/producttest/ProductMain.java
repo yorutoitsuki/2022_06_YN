@@ -125,13 +125,13 @@ class Buyer{
 					}
 					tvCnt++;
 				}
-				if(temp instanceof Computer) {
+				else if(temp instanceof Computer) {
 					if(computerCnt == 0) {
 						itemList += "Computer, ";
 					}
 					computerCnt++;
 				}
-				if(temp instanceof Audio) {
+				else if(temp instanceof Audio) {
 					if(audioCnt == 0) {
 						itemList += "Audio, ";
 					}
