@@ -46,7 +46,7 @@ public class Thread_Coroutine {
 	public static void main(String[] args) {
 //		ArrayList<Thread> thread = new ArrayList<Thread>();
 		Vector<Thread> thread2 = new Vector<Thread>();
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 5; i++) {
 			Thread t = new Sample(i);
 			Thread t2 = new Thread(new Sample2(i));
 			t.start();
