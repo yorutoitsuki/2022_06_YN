@@ -62,7 +62,22 @@ class Outer {
 		 *  원래는 클래스 이름이 없어서 생성자 정의할 수 없으나
 		 *  '인터페이스 또는 추상클래스명() {Override};'
 		 */
-		return new Readable() {
+		
+//		return new Readable() {
+//			@Override
+//			public void read() {
+//				//외부클래스의 private 멤버에도 접근 가능
+//				System.out.println("외부 객체 name : " + myName);
+//				
+//				//메서드의 매개변수(지역변수) 값 출력
+//				System.out.println("로컬 객체 ID : " + ID);
+//			}
+//		};
+		
+		/*
+		 * 익명 2
+		 */
+		Readable read = new Readable() {
 			@Override
 			public void read() {
 				//외부클래스의 private 멤버에도 접근 가능
@@ -72,9 +87,7 @@ class Outer {
 				System.out.println("로컬 객체 ID : " + ID);
 			}
 		};
-		/*
-		 * 익명 2
-		 */
+		return read;
 		
 	}//method() 끝
 	
