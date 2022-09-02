@@ -23,9 +23,17 @@ class Outer {
 	 * 3. 접근 제한자(public, private) 및 static 붙일 수 없음
 	 * 	  이유, 메서드 내에서만 사용되므로 접근을 제한할 필요가 없기 때문
 	 * 4. A$1E.class(바이트 코드 파일)로 생성됨
-	 * 5. 이때 사용되는 지역변수는 final
+	 * 5. 이때 사용되는 지역변수는 모두 final이 붙어 상수화 되어 있어 메서드 호출이 끝난 후에서 사용가능
 	 */
-	Readable method(int ID) {//주의 : 리턴 타입으로 Local 사용 불가
+	
+	/*
+	 * int ID -> final int ID 되는 이유, 컴파일러가 자동으로 final 붙여줌
+	 * method() 호출 결과 객체가 생성되어 그 주소값이 전달되면 지역변수나 매개변수는 Stack 메모리에서 사라진다
+	 * 그러나 final 키워드를 붙이면 지역변수나 매개변수의 복사본을 객체가 생성될 때
+	 * 항성 접근 가능한 메모리에 두고 값 변경시키지 못하게 한다. (원본과 복사본 일치하도록)
+	 */
+	Readable method(final int ID) {//주의 : 리턴 타입으로 Local 사용 불가
+		
 		class Local implements Readable {
 
 			@Override
