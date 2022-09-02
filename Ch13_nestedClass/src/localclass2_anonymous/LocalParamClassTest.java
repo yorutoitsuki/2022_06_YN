@@ -1,4 +1,4 @@
-package localclass2;
+package localclass2_anonymous;
 /*
  * LocalClass로 참조변수를 선언하지도 못하고 method() 반환형으로 선언하지도 못하며
  * LocalClass로 객체 생성할 때도 LocalClass를 감싸는 method() 내에서만 생성할 수 있으므로
@@ -38,11 +38,31 @@ class Outer {
 	 * method() 호출 결과 객체가 생성되어 그 주소값이 전달되면 지역변수나 매개변수는 Stack 메모리에서 사라진다
 	 * 그러나 final 키워드를 붙이면 지역변수나 매개변수의 복사본을 객체가 생성될 때
 	 * 항상 접근 가능한 메모리에 두고 값 변경시키지 못하게 한다. (원본과 복사본 일치하도록)
+	 * read() 호출하면 사라지지 않은 지역변수나 매개변수의 복사본을 따로 저장함
 	 */
 	Readable method(final int ID) {//주의 : 리턴 타입으로 Local 사용 불가
 		
-		class Local implements Readable {
-
+//		class Local implements Readable {
+//
+//			@Override
+//			public void read() {
+//				//외부클래스의 private 멤버에도 접근 가능
+//				System.out.println("외부 객체 name : " + myName);
+//				
+//				//메서드의 매개변수(지역변수) 값 출력
+//				System.out.println("로컬 객체 ID : " + ID);
+//			}
+//			
+//		}//Local 클래스 끝
+//		
+//		return new Local();
+		
+		/*
+		 *  익명1. 생성자 정의 + 객체 생성 + 객체를 리턴
+		 *  원래는 클래스 이름이 없어서 생성자 정의할 수 없으나
+		 *  '인터페이스 또는 추상클래스명() {Override};'
+		 */
+		return new Readable() {
 			@Override
 			public void read() {
 				//외부클래스의 private 멤버에도 접근 가능
@@ -51,10 +71,11 @@ class Outer {
 				//메서드의 매개변수(지역변수) 값 출력
 				System.out.println("로컬 객체 ID : " + ID);
 			}
-			
-		}//Local 클래스 끝
+		};
+		/*
+		 * 익명 2
+		 */
 		
-		return new Local();
 	}//method() 끝
 	
 	
